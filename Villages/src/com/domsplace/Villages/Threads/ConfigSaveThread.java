@@ -10,7 +10,7 @@ public class ConfigSaveThread extends VillageThread {
     
     @Override
     public void run() {
-        log("Saving Data...");
-        DataManager.saveAll();
+        //log("Saving Data...");
+        if(!DataManager.saveAll()) log("Failed to save Data!\nTry a manual save!");
     }
 }

@@ -1,11 +1,13 @@
 package com.domsplace.Villages.Bases;
 
 import com.domsplace.BansUtils;
+import com.domsplace.DomsCommands.Objects.DomsPlayer;
 import com.domsplace.Villages.Enums.ExpandMethod;
 import com.domsplace.Villages.GUI.VillagesGUIManager;
 import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Village;
 import com.domsplace.Villages.VillagesPlugin;
+import com.dthielke.herochat.Herochat;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,11 +70,11 @@ public class Base extends RawBase {
     }
     
     public static String getVillagePrefix(Village v) {
-        String p = VillagePrefix;
+        String p;
         if(v != null) {
             p = VillagePrefix.replaceAll("%v%", v.getName());
         } else {
-            p = VillagePrefix.replaceAll("%v%", "Wilderness");
+            p = VillagePrefix.replaceAll("%v%", Wilderness);
         }
         
         if(!p.contains("§")) p = colorise(p);
@@ -153,6 +155,22 @@ public class Base extends RawBase {
             }
         }
         return w;
+    }
+    
+    public static String arrayToString(Object[] array) {
+        return Base.arrayToString(array, " ");
+    }
+    
+    public static String arrayToString(Object[] array, String seperator) {
+        String m = "";
+        for(int i = 0; i < array.length; i++) {
+            m += array[i].toString();
+            if(i < (array.length - 1)) {
+                m += seperator;
+            }
+        }
+        
+        return m;
     }
     
     public static String trim(String s, int length) {
@@ -436,7 +454,7 @@ public class Base extends RawBase {
     
     //Player Utils
     public static boolean hasPermission(CommandSender sender, String permission) {
-        debug("Checking if " + sender.getName() + " has " + permission);
+        debug("Checking if " + sender.getName() + " has permission " + permission);
         if(permission.equals("Villages.none")) return true;
         if(!isPlayer(sender)) return true;
         
@@ -445,23 +463,28 @@ public class Base extends RawBase {
             return PluginHook.PEX_HOOK.hasPermission(getPlayer(sender), permission);
         }
         
+        //Vault Permission Checking
+        if(PluginHook.VAULT_HOOK.isHooked() && PluginHook.VAULT_HOOK.getPermission() != null) {
+            return PluginHook.VAULT_HOOK.getPermission().has(sender, permission);
+        }
+        
         return getPlayer(sender).hasPermission(permission);
     }
     
-    public boolean canSee(CommandSender p, OfflinePlayer target) {
+    public static boolean canSee(CommandSender p, OfflinePlayer target) {
         if(!isPlayer(p)) return true;
         if(!target.isOnline()) return true;
         return getPlayer(p).canSee(target.getPlayer());
     }
     
-    public boolean isVisible(OfflinePlayer t) {
+    public static boolean isVisible(OfflinePlayer t) {
         for(Player p : Bukkit.getOnlinePlayers()) {
             if(!canSee(p, t)) return false;
         }
         return true;
     }
     
-    public List<OfflinePlayer> getPlayersList() {
+    public static List<OfflinePlayer> getPlayersList() {
         List<OfflinePlayer> rv = new ArrayList<OfflinePlayer>();
         for(Player p : Bukkit.getOnlinePlayers()) {
             if(!isVisible(p)) continue;
@@ -470,9 +493,20 @@ public class Base extends RawBase {
         return rv;
     }
     
+    public static List<Player> getOnlinePlayers(CommandSender rel) {
+        List<Player> players = new ArrayList<Player>();
+        for(Player p : Bukkit.getOnlinePlayers()) {
+            if(!canSee(rel, p)) continue;
+            players.add(p);
+        }
+        return players;
+    }
+    
     public static boolean isMuted(OfflinePlayer player) {
-        if(!PluginHook.SEL_BANS_HOOK.isHooked()) return false;
-        return !BansUtils.CanPlayerTalk(player);
+        try {if(PluginHook.SEL_BANS_HOOK.isHooked() && !BansUtils.CanPlayerTalk(player)) return true;}catch(Error e) {} catch(Exception e) {}
+        try {if(PluginHook.DOMS_COMMANDS_HOOK.isHooked() && DomsPlayer.getPlayer(player).isMuted()) return true;}catch(Error e) {}catch(Exception e){}
+        try {if(PluginHook.HERO_CHAT_HOOK.isHooked() && Herochat.getChatterManager().getChatter(player.getName()).isMuted()) return true;}catch(Error e) {} catch(Exception e) {}
+        return true;
     }
     
     //Language Utils

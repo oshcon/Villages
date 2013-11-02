@@ -113,4 +113,6 @@ public class VillageCreate extends SubCommand {
         bk("createdvillage", getPlayer(sender), village);
         return true;
     }
+    
+    @Override public String getHelpTextShort() {return "Creates a Village with the name you enter.";}
 }

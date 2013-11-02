@@ -17,6 +17,7 @@ public class PluginHook extends Base{
     public static final SELBansHook SEL_BANS_HOOK = new SELBansHook();
     public static final PEXHook PEX_HOOK = new PEXHook();
     public static final EssentialsChatHook ESSENTIALS_CHAT_HOOK = new EssentialsChatHook();
+    public static final DomsCommandsHook DOMS_COMMANDS_HOOK = new DomsCommandsHook();
     
     //Static
     private static void hookPlugin(PluginHook hook) {

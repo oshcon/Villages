@@ -10,6 +10,7 @@ public class ManagerType extends Enum {
     public static final ManagerType SQL = new ManagerType("SQL");
     public static final ManagerType VILLAGE = new ManagerType("Village");
     public static final ManagerType VILLAGE_BANK = new ManagerType("Village Bank");
+    public static final ManagerType HELP = new ManagerType("Help");
     
     //Instance
     private String type;

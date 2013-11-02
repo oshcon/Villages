@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -196,39 +197,43 @@ public class LanguageManager extends DataManager {
         if(newData instanceof Plot) return appendKey(oldData, (Plot) newData);
         if(newData instanceof Tax) return appendKey(oldData, (Tax) newData);
         
-        return oldData.replaceAll("%x%", newData.toString());
+        return oldData.replaceAll("%x%", escape(newData.toString()));
     }
     
     private String appendKey(String oldData, Player p) {
-        return oldData.replaceAll("%p%", p.getDisplayName());
+        return oldData.replaceAll("%p%", escape(p.getDisplayName()));
     }
     
     private String appendKey(String oldData, OfflinePlayer p) {
         if(p.isOnline()) return appendKey(oldData, p.getPlayer());
-        return oldData.replaceAll("%p%", p.getName());
+        return oldData.replaceAll("%p%", escape(p.getName()));
     }
     
     private String appendKey(String oldData, Double amt) {
-        return oldData.replaceAll("%n%", Double.toString(amt));
+        return oldData.replaceAll("%n%", escape(Double.toString(amt)));
     }
     
     private String appendKey(String oldData, Village v) {
-        return oldData.replaceAll("%v%", v.getName());
+        return oldData.replaceAll("%v%", escape(v.getName()));
     }
     
     private String appendKey(String oldData, Resident r) {
-        return oldData.replaceAll("%p%", r.getName());
+        return oldData.replaceAll("%p%", escape(r.getName()));
     }
     
     private String appendKey(String oldData, Region r) {
-        return oldData.replaceAll("%r%", r.toString());
+        return oldData.replaceAll("%r%", escape(r.toString()));
     }
     
     private String appendKey(String oldData, Plot r) {
-        return oldData.replaceAll("%r%", r.getRegion().toString());
+        return oldData.replaceAll("%r%", escape(r.getRegion().toString()));
     }
     
     private String appendKey(String oldData, Tax r) {
-        return oldData.replaceAll("%t%", r.getName());
+        return oldData.replaceAll("%t%", escape(r.getName()));
+    }
+    
+    private String escape(String obj) {
+        return Matcher.quoteReplacement(obj);
     }
 }

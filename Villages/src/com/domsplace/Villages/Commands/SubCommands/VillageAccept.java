@@ -62,4 +62,6 @@ public class VillageAccept extends SubCommand {
         DataManager.saveAll();
         return true;
     }
+
+    @Override public String getHelpTextShort() {return "Accept a recieved Village Invite";}
 }

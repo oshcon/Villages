@@ -264,7 +264,6 @@ public class Village {
         Plot p = this.getPlot(r);
         if(p == null) return false;
         if(p.getOwner() == null) return false;
-        if(!p.getOwner().equals(resident)) return false;
-        return true;
+        return p.getOwner().equals(resident);
     }
 }

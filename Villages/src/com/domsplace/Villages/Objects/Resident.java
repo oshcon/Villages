@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Resident {
@@ -18,6 +19,11 @@ public class Resident {
     
     public static Resident getResident(Player player) {
         return getResident(Base.getOfflinePlayer(player));
+    }
+    
+    public static Resident getResident(CommandSender player) {
+        if(!Base.isPlayer(player)) return null;
+        return getResident(Base.getPlayer(player));
     }
     
     public static Resident getResident(String player) {

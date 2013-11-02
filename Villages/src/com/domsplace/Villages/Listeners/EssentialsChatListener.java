@@ -16,6 +16,7 @@
 
 package com.domsplace.Villages.Listeners;
 
+import com.domsplace.Villages.Bases.Base;
 import static com.domsplace.Villages.Bases.Base.Wilderness;
 import com.domsplace.Villages.Bases.VillageListener;
 import com.domsplace.Villages.Objects.Resident;
@@ -33,13 +34,8 @@ public class EssentialsChatListener extends VillageListener {
     public void handleEssentialsChat(AsyncPlayerChatEvent e) {
         String format = e.getFormat();
         
-        String village = Wilderness;
         Village vil = Village.getPlayersVillage(Resident.getResident(e.getPlayer()));
-        if(vil != null) {
-            village = vil.getName();
-        }
-        
-        format = format.replaceAll("\\{VILLAGE\\}", village);
+        format = format.replaceAll("\\{VILLAGE\\}", Base.getVillagePrefix(vil));
         e.setFormat(format);
     }
 }

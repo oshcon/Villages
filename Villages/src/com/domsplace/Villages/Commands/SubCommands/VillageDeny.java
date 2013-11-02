@@ -1,7 +1,6 @@
 package com.domsplace.Villages.Commands.SubCommands;
 
 import com.domsplace.Villages.Bases.BukkitCommand;
-import com.domsplace.Villages.Bases.DataManager;
 import com.domsplace.Villages.Bases.SubCommand;
 import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Village;

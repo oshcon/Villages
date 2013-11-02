@@ -1,11 +1,13 @@
 package com.domsplace.Villages.Bases;
 
+import com.domsplace.Villages.Objects.VillageHelpTopic;
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-public class SubCommand extends Base {
+public abstract class SubCommand extends Base implements Helpable {
     private String[] subs;
     private BukkitCommand cmd;
     private String permission = "none";
@@ -13,6 +15,7 @@ public class SubCommand extends Base {
     public SubCommand(String cmd, String... extenders) {
         this.subs = extenders;
         this.cmd = BukkitCommand.getCommand(cmd);
+        Bukkit.getHelpMap().addTopic(new VillageHelpTopic(this));
         if(this.cmd != null) this.cmd.addSubCommand(this);
     }
     
@@ -20,6 +23,7 @@ public class SubCommand extends Base {
     public BukkitCommand getCmd() {return this.cmd;}
     public String getCommand() {return this.getSubs()[this.getSubs().length - 1];}
     public String getPermission() {return "Villages." + this.permission;}
+    public String asCommand() {return this.cmd.getCommand() + " " + arrayToString(subs, " ");}
     
     public void setPermission(String permission) {this.permission = permission;}
     
@@ -57,10 +61,43 @@ public class SubCommand extends Base {
     
     public boolean tryCmd(BukkitCommand bkcmd, CommandSender sender, Command cmd, String label, String[] args) {
         if(!hasPermission(sender, getPermission())) return bkcmd.noPermission(sender, cmd, label, args);
-        return cmd(bkcmd, sender, cmd, label, args);
+        boolean c = cmd(bkcmd, sender, cmd, label, args);
+        if(c) return true;
+        return this.failedCommand(bkcmd, sender, cmd, label, args);
     }
     
-    public boolean cmd(BukkitCommand bkcmd, CommandSender sender, Command cmd, String label, String[] args) {
-        return false;
+    public abstract boolean cmd(BukkitCommand bkcmd, CommandSender sender, Command cmd, String label, String[] args);
+    
+    public boolean failedCommand(BukkitCommand bkcmd, CommandSender sender, Command cmd, String label, String[] args) {
+        sendMessage(sender, new String[] {
+            ChatImportant + "Command Help:",
+            "\t" + ChatImportant + "Usage: " + ChatDefault + this.getCommandUsage().replaceAll(this.cmd.getCommand(), label),
+            "\t" + ChatImportant + "Info: " + ChatDefault + this.getHelpTextShort()
+        });
+        return true;
+    }
+    
+    @Override public String getHelpPermission() {return this.getPermission();}
+    @Override public String getHelpTopic() {return "/" + this.asCommand();}
+    @Override public String getHelpTextLarge(CommandSender forWho) {return this.getHelpTextShort();}
+    @Override public void setHelpPermission(String permission) {this.setPermission(permission);}
+    
+    @Override
+    public String getHelpTextShort() {
+        for(String s : DataManager.HELP_MANAGER.helps.keySet()) {
+            if(!s.toLowerCase().startsWith(this.asCommand().toLowerCase())) continue;
+            return DataManager.HELP_MANAGER.helps.get(s);
+        }
+        
+        return ChatError + "Unknown Help.";
+    }
+    
+    public String getCommandUsage() {
+        for(String s : DataManager.HELP_MANAGER.helps.keySet()) {
+            if(!s.toLowerCase().startsWith(this.asCommand().toLowerCase())) continue;
+            return s;
+        }
+        
+        return this.cmd.getCommand();
     }
 }

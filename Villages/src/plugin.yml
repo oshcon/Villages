@@ -4,9 +4,9 @@ main: com.domsplace.Villages.VillagesPlugin
 author: Dominic
 authors: [Dominic, Jordan]
 website: http://domsplace.com/
-version: '2.10'
+version: '2.11'
 load: POSTWORLD
-softdepend: [WorldGuard, Vault, TagAPI, Herochat, PermissionsEx, EssentialsChat]
+softdepend: [WorldGuard, Vault, TagAPI, Herochat, PermissionsEx, EssentialsChat, DomsCommands]
 commands:
    village:
       description: Get Information about Villages and change Village options.

@@ -50,6 +50,7 @@ public class VillagesPlugin extends PluginBase {
         new VillageAdminSave();
         new VillageAdminReload();
         new VillageAdminDelete();
+        new VillageAdminDebug();
         new VillageAdminAddPlayer();
         new VillageAdminRemovePlayer();
         new VillageAdminSetName();

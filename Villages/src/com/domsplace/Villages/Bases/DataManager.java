@@ -16,6 +16,7 @@ public class DataManager extends Base {
     public static final GUIManager GUI_MANAGER = new GUIManager();
     public static final UpkeepManager UPKEEP_MANAGER = new UpkeepManager();
     public static final VillageManager VILLAGE_MANAGER = new VillageManager();
+    public static final HelpManager HELP_MANAGER = new HelpManager();
     
     private static void registerManager(DataManager manager) {
         DataManager.MANAGERS.add(manager);

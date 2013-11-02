@@ -12,6 +12,6 @@ public class VillageHelp extends SubCommand {
     
     @Override
     public boolean cmd(BukkitCommand bkcmd, CommandSender sender, Command cmd, String label, String[] args) {
-        return bkcmd.commandFailed(sender, cmd, label, new String[]{});
+        return bkcmd.commandFailed(sender, cmd, label, args);
     }
 }
