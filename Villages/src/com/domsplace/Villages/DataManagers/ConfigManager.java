@@ -97,16 +97,16 @@ public class ConfigManager extends DataManager {
         
         String mobspawningkey = "protection.mobspawning.village.";
         for(EntityType t : EntityType.values()) {
-            if(t == null || t.getName() == null) continue;
+            if(t == null || t.name() == null) continue;
             if(!t.isAlive()) continue;
-            df(mobspawningkey + t.getName(), true);
+            df(mobspawningkey + t.name(), true);
         }
         
         mobspawningkey = "protection.mobspawning.wilderness.";
         for(EntityType t : EntityType.values()) {
-            if(t == null || t.getName() == null) continue;
+            if(t == null || t.name() == null) continue;
             if(!t.isAlive()) continue;
-            df(mobspawningkey + t.getName(), true);
+            df(mobspawningkey + t.name(), true);
         }
         
         //PLANNED:
@@ -122,14 +122,14 @@ public class ConfigManager extends DataManager {
         df("plugins.herochat", true);
         df("plugins.vault", true);
         df("plugins.essentials.chat", true);
-        //df("plugins.dynmap", true); (REMOVED TEMPORARILY)
+        //df("plugins.dynmap", true);
         
         //Features
         df("features.lists.topvillages", true);
         df("features.lists.villagemembers", true);
         df("features.lists.taxday", true);
+        df("features.list.wilderness", true);
         df("features.cyclespeed", 60);
-        //df("features.map", true); (COMING SOON!)
         df("features.banks.item", true);
         df("features.banks.money", true);
         df("features.plots", true);
@@ -258,6 +258,7 @@ public class ConfigManager extends DataManager {
         PluginHook.HERO_CHAT_HOOK.shouldHook(config.getBoolean("plugins.herochat", true));
         PluginHook.TAG_API_HOOK.shouldHook(config.getBoolean("plugins.tagapi", true));
         PluginHook.ESSENTIALS_CHAT_HOOK.shouldHook(config.getBoolean("plugins.essentials.chat", true));
+        //PluginHook.DYNMAP_HOOK.shouldHook(config.getBoolean("plugins.dynmap", true));
         
         Base.useScoreboards = 
                 Base.getConfig().getBoolean("features.lists.topvillages", true) || 

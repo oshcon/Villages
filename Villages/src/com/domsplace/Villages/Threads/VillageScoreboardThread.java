@@ -50,6 +50,9 @@ public class VillageScoreboardThread extends VillageThread {
             v.setPlayer();
             v.reset();
             
+            if(!getConfig().getBoolean("features.list.wilderness", true) 
+                    && Village.getPlayersVillage(Resident.getResident(p)) == null) continue;
+            
             if(current.equals("top")) {
                 v.setName(Base.colorise(Base.trim(Base.gk("topvillageslist").get(0), 32)));
                 

@@ -18,6 +18,7 @@ public class PluginHook extends Base{
     public static final PEXHook PEX_HOOK = new PEXHook();
     public static final EssentialsChatHook ESSENTIALS_CHAT_HOOK = new EssentialsChatHook();
     public static final DomsCommandsHook DOMS_COMMANDS_HOOK = new DomsCommandsHook();
+    public static final DynmapHook DYNMAP_HOOK = new DynmapHook();
     
     //Static
     private static void hookPlugin(PluginHook hook) {

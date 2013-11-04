@@ -17,32 +17,45 @@
 package com.domsplace.Villages.Hooks;
 
 import com.domsplace.Villages.Bases.PluginHook;
-import com.domsplace.Villages.Listeners.DomsCommandsListener;
+import com.domsplace.Villages.Objects.Village;
+import com.domsplace.Villages.Threads.DynmapThread;
+import java.util.HashMap;
+import java.util.Map;
+import org.dynmap.markers.AreaMarker;
 
 /**
  * @author      Dominic
- * @since       02/11/2013
+ * @since       14/10/2013
  */
-public class DomsCommandsHook extends PluginHook {
-    private DomsCommandsListener listener;
+public class DynmapHook extends PluginHook {
+    public static Map<Village, AreaMarker> markers = new HashMap<Village, AreaMarker>();
     
-    public DomsCommandsHook() {
-        super("DomsCommands");
-        this.shouldHook(true);
+    private DynmapThread thread;
+    
+    public DynmapHook() {
+        super("dynmap");
     }
     
     @Override
     public void onHook() {
         super.onHook();
-        if(this.listener == null) this.listener = new DomsCommandsListener();
+        
+        this.thread = new DynmapThread();
     }
     
     @Override
     public void onUnhook() {
         super.onUnhook();
-        if(this.listener != null) {
-            this.listener.deRegisterListener();
-            this.listener = null;
+        
+        if(this.thread != null) {
+            this.thread.stopThread();
+            this.thread = null;
         }
+    }
+    
+    public AreaMarker updateVillage(Village v) {
+        double[] x;
+        double[] z;
+        return null;
     }
 }
