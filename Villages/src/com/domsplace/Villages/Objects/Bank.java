@@ -88,10 +88,12 @@ public class Bank {
 
     public void addItems(List<VillageItem> items) throws InvalidItemException {
         this.initGUI();
-        List<ItemStack> is = VillageItem.toItemStackArray(items);
-        for(ItemStack i : is) {
-            this.bankGUI.addItem(i);
-        }
+        try {
+            List<ItemStack> is = VillageItem.toItemStackArray(items);
+            for(ItemStack i : is) {
+                this.bankGUI.addItem(i);
+            }
+        } catch(Exception e){}
     }
     
     public void removeItems(List<VillageItem> relativeItemsCost) {

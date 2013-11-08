@@ -137,7 +137,9 @@ public class VillageManager extends DataManager {
                 try {
                     List<VillageItem> items = VillageItem.createItems(itemdata);
                     v.getBank().addItems(items);
-                } catch(InvalidItemException e) {log("bank.items." + k + " is an invalid item.");}
+                } catch(InvalidItemException e) {
+                    log("bank.items." + k + " is an invalid item.");
+                }
             }
         }
         

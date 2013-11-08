@@ -1,4 +1,4 @@
-    package com.domsplace.Villages.DataManagers;
+package com.domsplace.Villages.DataManagers;
 
 import com.domsplace.Villages.Bases.Base;
 import com.domsplace.Villages.Bases.DataManager;
