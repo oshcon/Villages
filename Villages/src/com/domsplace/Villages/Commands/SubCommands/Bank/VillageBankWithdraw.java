@@ -52,7 +52,7 @@ public class VillageBankWithdraw extends SubCommand {
         
         v.getBank().addWealth(-amt);
         PluginHook.VAULT_HOOK.getEconomy().depositPlayer(sender.getName(), amt);
-        v.broadcast(gk("withdrawledmoney", r, amt));
+        v.broadcast(gk("withdrawledmoney", r, PluginHook.VAULT_HOOK.formatEconomy(amt)));
         return true;
     }
 }

@@ -136,7 +136,7 @@ public class LanguageManager extends DataManager {
         cDV("notaxfound", "%e%Couldn't find the tax by that name.");
         cDV("topvillages", "%i%The top %x% Villages are:");
         cDV("topvillageslist", " &c= &6Top Villages &c= ");
-        cDV("villagebankneedmore", "%e%You don't have enough money in the Village bank! You need %n% to do this.");
+        cDV("villagebankneedmore", "%e%You don't have enough money in the Village bank! You need %x% to do this.");
         cDV("villageclosed", "%d%The Village %i%%v% %d%fell into Anarchy!");
         cDV("villagedelete", "%d%Deleted the village %i%%v%%d%!");
         cDV("villagedoesntexist", "%e%Village doesn't exist.");
@@ -150,7 +150,7 @@ public class LanguageManager extends DataManager {
         cDV("welcomevillage", "");
         cDV("wildernessvillageneter", "Traveller %i%%p% %d%has entered the Village!");
         cDV("wildernesswildernessneter", "Traveller %i%%p% %d%left the Village and entered the Wilderness!");
-        cDV("withdrawledmoney", "%i%%p% %d%withdrew %i%%n% %d%from the Village Bank.");
+        cDV("withdrawledmoney", "%i%%p% %d%withdrew %i%%x% %d%from the Village Bank.");
         
         this.trySave();
     }
