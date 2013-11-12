@@ -95,6 +95,7 @@ permissions:
        Villages.mayor.kick: true
        Villages.mayor.setdescription: true
        Villages.mayor.setmayor: true
+       Villages.mayor.setspawn: true
        Villages.mayor.setname: true
        Villages.mayor.expand: true
        Villages.mayor.explode: true

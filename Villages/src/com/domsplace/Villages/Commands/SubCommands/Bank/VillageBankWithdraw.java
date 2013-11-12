@@ -46,7 +46,7 @@ public class VillageBankWithdraw extends SubCommand {
         
         double b = v.getBank().getWealth();
         if(b < amt) {
-            sk(sender, "villagebankneedmore", amt);
+            sk(sender, "villagebankneedmore", PluginHook.VAULT_HOOK.formatEconomy(amt));
             return true;
         }
         

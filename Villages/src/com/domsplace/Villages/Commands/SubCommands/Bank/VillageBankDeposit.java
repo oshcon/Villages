@@ -47,7 +47,7 @@ public class VillageBankDeposit extends SubCommand {
         
         double b = Base.getBalance(sender.getName());
         if(b < amt) {
-            sk(sender, "notenoughmoney", amt);
+            sk(sender, "notenoughmoney", PluginHook.VAULT_HOOK.formatEconomy(amt));
             return true;
         }
         
