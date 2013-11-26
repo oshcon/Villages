@@ -28,6 +28,8 @@ public class VillageBankWithdraw extends SubCommand {
         Village v = Village.getPlayersVillage(r);
         if(v == null) {sk(sender, "notinvillage");return true;}
         
+        if(!v.isMayor(r)) {sk(sender, "onlymayor"); return true;}
+        
         if(args.length < 1) {
             sk(sender, "enteramount");
             return false;

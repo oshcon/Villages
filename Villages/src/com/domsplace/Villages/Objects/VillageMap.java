@@ -48,8 +48,8 @@ public class VillageMap {
     public MapView getMapView() {return this.map;}
     public VillageMapRenderer getRenderer() {return this.renderer;}
     
-    public VillageItem getMapAsItem() {
-        VillageItem item =  new VillageItem(Material.MAP, this.map.getId());
+    public DomsItem getMapAsItem() {
+        DomsItem item =  new DomsItem(Material.MAP, this.map.getId());
         item.setName(Base.ChatDefault + "Map for " + Base.ChatImportant + village.getName());
         return item;
     }

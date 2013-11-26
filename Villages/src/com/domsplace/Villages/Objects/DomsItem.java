@@ -1,8 +1,7 @@
 package com.domsplace.Villages.Objects;
 
 import com.domsplace.Villages.Bases.Base;
-import com.domsplace.Villages.Exceptions.InvalidItemException;
-import java.util.ArrayList;
+import com.domsplace.Villages.Exceptions.InvalidItemException;import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,7 @@ import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class VillageItem {
+public class DomsItem {
     /*
      * String Serialization: 
      * {size:4},{id:17},{data:2},{name:"Hey, this is cool {right?}",{author:DOMIN8TRIX25},{page:"This is my page, I love{it}"},{page:"Hey another page!"},{lore:"Some lore, it's cool {ik}"},{lore:"Anotherlore"},{enchantment:ARROW_DAMAGE*3},{enchantment:OXYGEN*3}
@@ -37,27 +36,27 @@ public class VillageItem {
     public static final String ITEM_META_ATTRIBUTE_SEPERATOR_REGEX = "\\{(\\s*)(\\w+)\\:(\\s*)(\".*?(?<!\\\\)(\"))(\\s*)\\}";
     public static final short BAD_DATA = -1;
     
-    public static List<VillageItem> createAllItems(List<String> list) throws InvalidItemException {
-        List<VillageItem> items = new ArrayList<VillageItem>();
+    public static List<DomsItem> createAllItems(List<String> list) throws InvalidItemException {
+        List<DomsItem> items = new ArrayList<DomsItem>();
         
         for(String s : list) {
-            items.addAll(VillageItem.createItems(s));
+            items.addAll(DomsItem.createItems(s));
         }
         
         return items;
     }
     
-    public static VillageItem createItem(String line) throws InvalidItemException {
+    public static DomsItem createItem(String line) throws InvalidItemException {
         return createItems(line).get(0);
     }
     
-    public static ItemStack createItem(List<VillageItem> item) {
+    public static ItemStack createItem(List<DomsItem> item) {
         try {
             return item.get(0).getItemStack(item.size());
         } catch(Exception e) {return null;}
     }
     
-    public static List<VillageItem> createItems(String line) throws InvalidItemException {
+    public static List<DomsItem> createItems(String line) throws InvalidItemException {
         try {
             line = line.replaceAll("\\n","\\\\n");
             String[] parts = line.split(ITEM_META_SEPERATOR_REGEX.pattern());
@@ -127,7 +126,7 @@ public class VillageItem {
             }
             
             if(data.containsKey("id")) {
-                material = VillageItem.guessMaterial(data.get("id"));
+                material = DomsItem.guessMaterial(data.get("id"));
             }
             
             if(data.containsKey("data")) {
@@ -163,9 +162,9 @@ public class VillageItem {
                 }
             }
             
-            List<VillageItem> items = new ArrayList<VillageItem>();
+            List<DomsItem> items = new ArrayList<DomsItem>();
             for(int i = 0; i < count; i++) {
-                VillageItem item = new VillageItem(material, idata);
+                DomsItem item = new DomsItem(material, idata);
                 item.setPages(pages);
                 item.setLores(lores);
                 item.setEnchantments(enchants);
@@ -186,19 +185,19 @@ public class VillageItem {
         }
     }
     
-    public static VillageItem copy(VillageItem from) throws InvalidItemException {
-        return VillageItem.createItem(from.toString());
+    public static DomsItem copy(DomsItem from) throws InvalidItemException {
+        return DomsItem.createItem(from.toString());
     }
 
-    public static List<VillageItem> itemStackToVillageItems(ItemStack is) {
+    public static List<DomsItem> itemStackToDomsItems(ItemStack is) {
         if(is == null) return null;
-        List<VillageItem> items = new ArrayList<VillageItem>();
+        List<DomsItem> items = new ArrayList<DomsItem>();
         
-        VillageItem copy = new VillageItem(is);
+        DomsItem copy = new DomsItem(is);
         
         for(int i = 0; i < is.getAmount(); i++) {
             try {
-                items.add(VillageItem.copy(copy));
+                items.add(DomsItem.copy(copy));
             } catch(InvalidItemException e) {
                 continue;
             }
@@ -207,21 +206,21 @@ public class VillageItem {
         return items;
     }
     
-    public static boolean contains(List<VillageItem> doesThis, VillageItem containThis) {
-        List<VillageItem> items = new ArrayList<VillageItem>();
+    public static boolean contains(List<DomsItem> doesThis, DomsItem containThis) {
+        List<DomsItem> items = new ArrayList<DomsItem>();
         return contains(doesThis, items);
     }
     
-    public static boolean contains(List<VillageItem> doesThis, List<VillageItem> containThis) {
+    public static boolean contains(List<DomsItem> doesThis, List<DomsItem> containThis) {
         if(containThis.size() > doesThis.size()) return false;
         
-        List<VillageItem> doesCopy = new ArrayList<VillageItem>(doesThis);
+        List<DomsItem> doesCopy = new ArrayList<DomsItem>(doesThis);
         
-        for(VillageItem item : containThis) {
+        for(DomsItem item : containThis) {
             
             boolean found = false;
-            VillageItem remove = null;
-            for(VillageItem i : doesCopy) {
+            DomsItem remove = null;
+            for(DomsItem i : doesCopy) {
                 if(i.compare(item)) found = true;
                 remove = i;
                 if(found) break;
@@ -237,10 +236,10 @@ public class VillageItem {
         return true;
     }
     
-    public static List<String> getHumanMessages(List<VillageItem> items) {
+    public static List<String> getHumanMessages(List<DomsItem> items) {
         List<String> s1 = new ArrayList<String>();
         
-        for(VillageItem i : items) {
+        for(DomsItem i : items) {
             s1.add(i.toHumanString());
         }
         
@@ -254,7 +253,7 @@ public class VillageItem {
         List<String> s2 = new ArrayList<String>();
         
         for(String s : count.keySet()) {
-            s2.add(count.get(s) + " lots of " + s);
+            s2.add(count.get(s) + " lot" + (count.get(s) != 1 ? "s" : "") + " of " + s);
         }
         
         return s2;
@@ -264,11 +263,11 @@ public class VillageItem {
         return Base.decolorise(s.replaceAll("\\\"", "&q").replaceAll("\\\\n", "\\n"));
     }
 
-    static List<ItemStack> toItemStackArray(List<VillageItem> items) throws InvalidItemException {
+    static List<ItemStack> toItemStackArray(List<DomsItem> items) throws InvalidItemException {
         List<ItemStack> i = new ArrayList<ItemStack>();
         List<String> s1 = new ArrayList<String>();
         
-        for(VillageItem it : items) {
+        for(DomsItem it : items) {
             s1.add(it.toString());
         }
         
@@ -280,7 +279,7 @@ public class VillageItem {
         }
         
         for(String s : count.keySet()) {
-            VillageItem item = VillageItem.createItem(s);
+            DomsItem item = DomsItem.createItem(s);
             if(item.isAir()) continue;
             int amtneeded = count.get(s);
             while(amtneeded > 0) {
@@ -309,16 +308,16 @@ public class VillageItem {
         return false;
     }
     
-    public static VillageItem guessItem(String s) throws InvalidItemException {
+    public static DomsItem guessItem(String s) throws InvalidItemException {
         try {
-            return VillageItem.createItem(s);
+            return DomsItem.createItem(s);
         } catch(InvalidItemException e) {}
         
         String[] parts = s.split(":");
         
         if(parts.length < 1) throw new InvalidItemException(s);
         
-        String material = VillageItem.guessMaterial(parts[0]);
+        String material = DomsItem.guessMaterial(parts[0]);
         short data = BAD_DATA;
         
         if(parts.length > 1) {
@@ -332,11 +331,11 @@ public class VillageItem {
         Material m = Material.getMaterial(material);
         if(m == null) throw new InvalidItemException(s);
         
-        return new VillageItem(material, data);
+        return new DomsItem(material, data);
     }
     
-    public static List<VillageItem> multiply(VillageItem item, int amount) {
-        List<VillageItem> items = new ArrayList<VillageItem>();
+    public static List<DomsItem> multiply(DomsItem item, int amount) {
+        List<DomsItem> items = new ArrayList<DomsItem>();
         for(int i = 0; i < amount; i++) {
             items.add(item.copy());
         }
@@ -357,14 +356,14 @@ public class VillageItem {
         return null;
     }
 
-    public static VillageItem createItem(ItemStack is) {
+    public static DomsItem createItem(ItemStack is) {
         if(is == null) return null;
-        List<VillageItem> item = VillageItem.itemStackToVillageItems(is);
+        List<DomsItem> item = DomsItem.itemStackToDomsItems(is);
         if(item == null || item.isEmpty()) return null;
         return item.get(0);
     }
     
-    private static long NEXT_ID = Long.MIN_VALUE;
+    public static long NEXT_ID = Long.MIN_VALUE;
     
     //Instance
     private String material;
@@ -381,7 +380,7 @@ public class VillageItem {
     private int color;
     private int repairCost;
     
-    public VillageItem(String material, short data, Map<Enchantment, Integer> enchants, Map<Enchantment, Integer> storedEnchants, List<String> pages, String name, List<String> lores) {
+    public DomsItem(String material, short data, Map<Enchantment, Integer> enchants, Map<Enchantment, Integer> storedEnchants, List<String> pages, String name, List<String> lores) {
         this.material = material;
         this.data = data;
         this.enchants = enchants;
@@ -392,64 +391,64 @@ public class VillageItem {
         this.itemID = NEXT_ID += 1;
     }
     
-    public VillageItem(String material, short data, Map<Enchantment, Integer> enchants, Map<Enchantment, Integer> storedEnchants, List<String> pages, String name) {
+    public DomsItem(String material, short data, Map<Enchantment, Integer> enchants, Map<Enchantment, Integer> storedEnchants, List<String> pages, String name) {
         this(material, data, enchants, storedEnchants, pages, name, null);
     }
     
-    public VillageItem(String material, short data, short damage, Map<Enchantment, Integer> enchants, List<String> pages, List<String> lores) {
+    public DomsItem(String material, short data, short damage, Map<Enchantment, Integer> enchants, List<String> pages, List<String> lores) {
         this(material, data, enchants, null, pages, null, lores);
     }
     
-    public VillageItem(String material, short data, short damage, Map<Enchantment, Integer> enchants, String name, List<String> lores) {
+    public DomsItem(String material, short data, short damage, Map<Enchantment, Integer> enchants, String name, List<String> lores) {
         this(material, data, enchants, null, null, name, lores);
     }
     
-    public VillageItem(String material, short data, Map<Enchantment, Integer> enchants, String name) {
+    public DomsItem(String material, short data, Map<Enchantment, Integer> enchants, String name) {
         this(material, data, enchants, null, null, name, null);
     }
     
-    public VillageItem(String material, short data, Map<Enchantment, Integer> enchants, List<String> lores) {
+    public DomsItem(String material, short data, Map<Enchantment, Integer> enchants, List<String> lores) {
         this(material, data, enchants, null, null, null, lores);
     }
     
-    public VillageItem(String material, short data, List<String> pages, String name, List<String> lores) {
+    public DomsItem(String material, short data, List<String> pages, String name, List<String> lores) {
         this(material, data, null, null, pages, name, lores);
     }
     
-    public VillageItem(String material, short data, String name, List<String> lores) {
+    public DomsItem(String material, short data, String name, List<String> lores) {
         this(material, data, null, null, null, name, lores);
     }
     
-    public VillageItem(String material, short data, String name) {
+    public DomsItem(String material, short data, String name) {
         this(material, data, name, null);
     }
     
-    public VillageItem(String material, short data, List<String> lores) {
+    public DomsItem(String material, short data, List<String> lores) {
         this(material, data, null, null, null, null, lores);
     }
     
-    public VillageItem(Material m, short data) {
+    public DomsItem(Material m, short data) {
         this(m.name(), data);
     }
     
-    public VillageItem(String material, short data) {
+    public DomsItem(String material, short data) {
         this(material, data, null, null, null, null);
     }
     
-    public VillageItem(String material) {
+    public DomsItem(String material) {
         this(material, BAD_DATA);
     }
     
-    public VillageItem(Material m) {
+    public DomsItem(Material m) {
         this(m.name());
     }
     
     @Deprecated
-    public VillageItem(int id) {
+    public DomsItem(int id) {
         this(Material.getMaterial(id));
     }
     
-    public VillageItem(ItemStack is) {
+    public DomsItem(ItemStack is) {
         this(
             is.getType().name(),
             is.getDurability()
@@ -517,7 +516,7 @@ public class VillageItem {
     public boolean isMobNameable() {return this.getMaterial().equals(Material.MONSTER_EGG) || this.getMaterial().equals(Material.MONSTER_EGGS) || this.getMaterial().equals(Material.NAME_TAG);}
     public boolean isHead() {return this.getMaterial().equals(Material.SKULL) || this.getMaterial().equals(Material.SKULL_ITEM);}
 
-    public boolean hasData() {return this.data != VillageItem.BAD_DATA;}
+    public boolean hasData() {return this.data != DomsItem.BAD_DATA;}
     
     public void setMaterialName(String material) {this.material = material;}
     public void setData(short data) {this.data = data;}
@@ -620,15 +619,15 @@ public class VillageItem {
         return s;
     }
     
-    public boolean compare(VillageItem item) {
+    public boolean compare(DomsItem item) {
         return item.toString().equalsIgnoreCase(this.toString());
     }
     
-    public VillageItem copy() {
+    public DomsItem copy() {
         try {
-            return VillageItem.copy(this);
+            return DomsItem.copy(this);
         } catch(InvalidItemException e) {
-            return new VillageItem(Material.AIR);
+            return new DomsItem(Material.AIR);
         }
     }
     
@@ -763,7 +762,7 @@ public class VillageItem {
     public void giveToPlayer(Player player) throws InvalidItemException {
         //TODO: Smarter logic, checking for non full stack sizes etc.
         Inventory in = player.getInventory();
-        if(VillageItem.isInventoryFull(in)) {
+        if(DomsItem.isInventoryFull(in)) {
             //Inventory is Full, drop the item instead
             ItemStack is = this.getItemStack(1);
             player.getWorld().dropItemNaturally(player.getLocation(), is);

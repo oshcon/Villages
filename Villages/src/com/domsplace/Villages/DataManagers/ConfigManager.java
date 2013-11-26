@@ -109,6 +109,20 @@ public class ConfigManager extends DataManager {
             df(mobspawningkey + t.name(), true);
         }
         
+        String mobkillingkey = "protection.mobattacking.village.";
+        for(EntityType t : EntityType.values()) {
+            if(t == null || t.name() == null) continue;
+            if(!t.isAlive()) continue;
+            df(mobspawningkey + t.name(), true);
+        }
+        
+        mobkillingkey = "protection.mobattacking.wilderness.";
+        for(EntityType t : EntityType.values()) {
+            if(t == null || t.name() == null) continue;
+            if(!t.isAlive()) continue;
+            df(mobspawningkey + t.name(), false);
+        }
+        
         //PLANNED:
         //df("protection.mobgriefing.village.creeper", false);
         //df("protection.mobgriefing.village.enderman", false);
@@ -148,6 +162,8 @@ public class ConfigManager extends DataManager {
         //Costs
         df("costs.createvillage", 1000);
         df("costs.expandvillage", 100);
+        df("refund.closevillage", 500);
+        df("refund.closevillageperchunk", 50);
         
         //Messages
         df("messages.names.wilderness", "Wilderness");

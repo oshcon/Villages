@@ -15,6 +15,7 @@ public class WildernessGriefListener extends VillageListener {
     public void blockWildernessInteracting(GriefEvent e) {
         if(!e.getType().equals(GriefType.INTERACT)) return;
         if(getConfig().getBoolean("protection.grief.wilderness.use", true)) return;
+        if(Base.hasPermission(e.getPlayer(), Base.OVERRIDE_PERMISSION)) return;
         Region region = Region.getRegion(e.getBlock().getLocation());
         Village village = Village.getOverlappingVillage(region);
         if(village != null) return;
@@ -26,6 +27,7 @@ public class WildernessGriefListener extends VillageListener {
     public void blockWildernessBreaking(GriefEvent e) {
         if(!e.getType().equals(GriefType.BREAK)) return;
         if(getConfig().getBoolean("protection.grief.wilderness.break", true)) return;
+        if(Base.hasPermission(e.getPlayer(), Base.OVERRIDE_PERMISSION)) return;
         Region region = Region.getRegion(e.getBlock().getLocation());
         Village village = Village.getOverlappingVillage(region);
         if(village != null) return;
@@ -37,6 +39,7 @@ public class WildernessGriefListener extends VillageListener {
     public void blockWildernessPlacing(GriefEvent e) {
         if(!e.getType().equals(GriefType.PLACE)) return;
         if(getConfig().getBoolean("protection.grief.wilderness.place", true)) return;
+        if(Base.hasPermission(e.getPlayer(), Base.OVERRIDE_PERMISSION)) return;
         Region region = Region.getRegion(e.getBlock().getLocation());
         Village village = Village.getOverlappingVillage(region);
         if(village != null) return;
@@ -48,6 +51,7 @@ public class WildernessGriefListener extends VillageListener {
     public void blockWildernessMining(GriefEvent e) {
         if(!e.getType().equals(GriefType.BLOCK_DAMAGE)) return;
         if(getConfig().getBoolean("protection.grief.wilderness.mine", true)) return;
+        if(Base.hasPermission(e.getPlayer(), Base.OVERRIDE_PERMISSION)) return;
         Region region = Region.getRegion(e.getBlock().getLocation());
         Village village = Village.getOverlappingVillage(region);
         if(village != null) return;

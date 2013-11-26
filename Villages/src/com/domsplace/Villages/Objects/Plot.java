@@ -1,5 +1,7 @@
 package com.domsplace.Villages.Objects;
 
+import com.domsplace.Villages.Bases.Base;
+
 public class Plot {
     private Resident owner;
     private double cost;
@@ -26,6 +28,7 @@ public class Plot {
     public boolean canBuild(Resident res) {
         if(res == null) return false;
         if(this.village.isMayor(res)) return true;
+        if(Base.hasPermission(res.getOfflinePlayer(), Base.OVERRIDE_PERMISSION)) return true;
         return this.owner.equals(res);
     }
 }

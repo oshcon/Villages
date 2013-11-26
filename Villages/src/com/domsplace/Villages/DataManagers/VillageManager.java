@@ -13,7 +13,7 @@ import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Tax;
 import com.domsplace.Villages.Objects.TaxData;
 import com.domsplace.Villages.Objects.Village;
-import com.domsplace.Villages.Objects.VillageItem;
+import com.domsplace.Villages.Objects.DomsItem;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -135,7 +135,7 @@ public class VillageManager extends DataManager {
             for(String k : ((MemorySection) yml.get("bank.items")).getKeys(false)) {
                 String itemdata = yml.getString("bank.items." + k);
                 try {
-                    List<VillageItem> items = VillageItem.createItems(itemdata);
+                    List<DomsItem> items = DomsItem.createItems(itemdata);
                     v.getBank().addItems(items);
                 } catch(InvalidItemException e) {
                     log("bank.items." + k + " is an invalid item.");
@@ -221,7 +221,7 @@ public class VillageManager extends DataManager {
         for(Map<String, String> res : result) {
             int itemID = getInt(res.get("ItemID"));
             try {
-                VillageItem item = this.getItemFromID(itemID);
+                DomsItem item = this.getItemFromID(itemID);
                 v.getBank().addItem(item);
             } catch(Exception e){}
         }
@@ -274,10 +274,10 @@ public class VillageManager extends DataManager {
         }
         
         Bank b = village.getBank();
-        List<VillageItem> currentBankItems = b.getItemsFromInventory();
+        List<DomsItem> currentBankItems = b.getItemsFromInventory();
         
         int viid = 0;
-        for(VillageItem vi : currentBankItems) {
+        for(DomsItem vi : currentBankItems) {
             String n = "item" + viid;
             
             yml.set("bank.items." + n, vi.toString());
@@ -291,7 +291,7 @@ public class VillageManager extends DataManager {
     private void saveSQLResidents() throws IOException {
         //Make sure to update books that are registered
         for(Village v : Village.getVillages()) {
-            for(VillageItem item : v.getBank().getItemsFromInventory()) {
+            for(DomsItem item : v.getBank().getItemsFromInventory()) {
                 if(item.getBookAuthor() == null) continue;
                 Resident r = Resident.getResident(item.getBookAuthor());
             }
@@ -428,15 +428,11 @@ public class VillageManager extends DataManager {
         }
         
         //Store Bank
-        for(VillageItem item : village.getBank().getItemsFromInventory()) {
+        for(DomsItem item : village.getBank().getItemsFromInventory()) {
             query = "INSERT INTO `%db%`.`%t%Items` (`ID`";
-            if(item.getData() >= 0) {
-                query += ", `Data`";
-            }
+            query += ", `Data`";
             query += ") VALUES ('" + item.getMaterialName()+ "'";
-            if(item.getData() >= 0) {
-                query += ", '" + item.getData() + "'";
-            }
+            query += ", '" + item.getData() + "'";
             
             query += ");";
             
@@ -444,9 +440,9 @@ public class VillageManager extends DataManager {
             
             //Add Enchantments (if any)
             if(item.getEnchantments() != null && item.getEnchantments().size() > 0) {
-                query = "INSERT INTO `%db%`.`%t%ItemEnchantments` (`ItemID`, `EnchantmentID`, `EnchantmentLevel`) VALUES";
+                query = "INSERT INTO `%db%`.`%t%ItemEnchantments` (`ItemID`, `EnchantmentName`, `EnchantmentLevel`) VALUES";
                 for(Enchantment e : item.getEnchantments().keySet()) {
-                    query += "('" + id + "', '" + e.getId() + "', '" + item.getEnchantments().get(e) + "'), ";
+                    query += "('" + id + "', '" + e.getName() + "', '" + item.getEnchantments().get(e) + "'), ";
                 }
                 
                 query = query.substring(0, query.length() - 2) + ";";
@@ -651,11 +647,11 @@ public class VillageManager extends DataManager {
         return regions;
     }
     
-    public VillageItem getItemFromID(int id) {
+    public DomsItem getItemFromID(int id) {
         String query = "SELECT `ID`, `Data` FROM `%db%`.`%t%Items` WHERE `ItemID`='" + id + "' LIMIT 1;";
         Map<String, String> result = DataManager.SQL_MANAGER.fetch(query).get(0);
         
-        VillageItem item = new VillageItem(result.get("ID"), getShort(result.get("Data")));
+        DomsItem item = new DomsItem(result.get("ID"), getShort(result.get("Data")));
         
         //Get Additional data
         query = "SELECT `ItemName` FROM `%db%`.`%t%ItemNames` WHERE `ItemID`='" + id + "';";
@@ -683,9 +679,16 @@ public class VillageManager extends DataManager {
         List<Map<String, String>> enchants = DataManager.SQL_MANAGER.fetch(query);
         for(Map<String, String> enchant : enchants) {
             try {
-                int eid = getInt(enchant.get("EnchantmentID"));
+                String eid = enchant.get("EnchantmentName");
                 int lvl = getInt(enchant.get("EnchantmentLevel"));
-                item.addEnchantment(Enchantment.getById(eid), lvl);
+                
+                Enchantment en = Enchantment.getByName(eid);
+                
+                if(isInt(eid)) {
+                    en = Enchantment.getById(getInt(eid));
+                }
+                
+                item.addEnchantment(en, lvl);
             } catch(Exception e) {}
         }
         

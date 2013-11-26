@@ -40,7 +40,7 @@ public class WorldGuardHook extends PluginHook {
     
     public ProtectedRegion getOverlappingRegion(Region region) {
         for(ProtectedRegion r : getWorldGuard().getRegionManager(region.getBukkitWorld()).getRegions().values()) {
-            debug("Checking Region " + r.getId());
+            Base.debug("Checking Region " + r.getId());
             if(!isCoordBetweenCoords(region, r)) continue;
             return r;
         }
@@ -64,14 +64,14 @@ public class WorldGuardHook extends PluginHook {
     }
     
     public static boolean isCoordBetweenCoords(int checkX, int checkZ, BlockVector min, BlockVector max) {
-        return isCoordBetweenCoords(checkX, checkZ, min.getBlockX(), min.getBlockZ(), max.getBlockX(), max.getBlockZ());
+        return Base.isCoordBetweenCoords(checkX, checkZ, min.getBlockX(), min.getBlockZ(), max.getBlockX(), max.getBlockZ());
     }
     
     public static boolean isCoordBetweenCoords(BlockVector bv, int outerX, int outerZ, int maxX, int maxZ) {
-        return isCoordBetweenCoords(bv.getBlockX(), bv.getBlockZ(), outerX, outerZ, maxX, maxZ);
+        return Base.isCoordBetweenCoords(bv.getBlockX(), bv.getBlockZ(), outerX, outerZ, maxX, maxZ);
     }
     
     public static boolean isCoordBetweenCoords(BlockVector bv, Block b1, Block b2) {
-        return isCoordBetweenCoords(bv.getBlockX(), bv.getBlockZ(), b1.getX(), b1.getZ(), b2.getX(), b2.getZ());
+        return Base.isCoordBetweenCoords(bv.getBlockX(), bv.getBlockZ(), b1.getX(), b1.getZ(), b2.getX(), b2.getZ());
     }
 }

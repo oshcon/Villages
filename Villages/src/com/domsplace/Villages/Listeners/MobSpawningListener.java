@@ -16,7 +16,7 @@ public class MobSpawningListener extends VillageListener {
         if(e.getSpawnReason().equals(SpawnReason.SPAWNER_EGG)) return;
         if(e.getSpawnReason().equals(SpawnReason.BREEDING)) return;
         
-        String mobspawningkey = "protection.mobspawning.village." + e.getEntity().getType().getName();
+        String mobspawningkey = "protection.mobspawning.village." + e.getEntity().getType().name();
         if(getConfig().getBoolean(mobspawningkey, true)) return;
         
         Region r = Region.getRegion(e.getLocation());
@@ -33,7 +33,7 @@ public class MobSpawningListener extends VillageListener {
         if(e.getSpawnReason().equals(SpawnReason.SPAWNER_EGG)) return;
         if(e.getSpawnReason().equals(SpawnReason.BREEDING)) return;
         
-        String mobspawningkey = "protection.mobspawning.wilderness." + e.getEntity().getType().getName();
+        String mobspawningkey = "protection.mobspawning.wilderness." + e.getEntity().getType().name();
         if(getConfig().getBoolean(mobspawningkey, true)) return;
         
         Region r = Region.getRegion(e.getLocation());

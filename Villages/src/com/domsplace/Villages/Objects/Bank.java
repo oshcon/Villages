@@ -49,6 +49,8 @@ public class Bank {
     }
 
     public void delete() {
+        this.updateGUI();
+        this.bankGUI.clear();
     }
     
     protected void updateGUI() {
@@ -70,46 +72,46 @@ public class Bank {
         this.updateGUI();
     }
     
-    public List<VillageItem> getItemsFromInventory() {
+    public List<DomsItem> getItemsFromInventory() {
         this.initGUI();
-        List<VillageItem> items = new ArrayList<VillageItem>();
+        List<DomsItem> items = new ArrayList<DomsItem>();
         
         for(ItemStack is : this.bankGUI.getContents()) {
             if(is == null || is.getType() == null) continue;
-            items.addAll(VillageItem.itemStackToVillageItems(is));
+            items.addAll(DomsItem.itemStackToDomsItems(is));
         }
         
         return items;
     }
 
-    public boolean containsItems(List<VillageItem> relativeItemsCost) {
-        return VillageItem.contains(this.getItemsFromInventory(), relativeItemsCost);
+    public boolean containsItems(List<DomsItem> relativeItemsCost) {
+        return DomsItem.contains(this.getItemsFromInventory(), relativeItemsCost);
     }
 
-    public void addItems(List<VillageItem> items) throws InvalidItemException {
+    public void addItems(List<DomsItem> items) throws InvalidItemException {
         this.initGUI();
         try {
-            List<ItemStack> is = VillageItem.toItemStackArray(items);
+            List<ItemStack> is = DomsItem.toItemStackArray(items);
             for(ItemStack i : is) {
                 this.bankGUI.addItem(i);
             }
         } catch(Exception e){}
     }
     
-    public void removeItems(List<VillageItem> relativeItemsCost) {
+    public void removeItems(List<DomsItem> relativeItemsCost) {
         this.initGUI();
-        for(VillageItem i : relativeItemsCost) {
+        for(DomsItem i : relativeItemsCost) {
             this.removeItem(i);
         }
     }
     
-    public void removeItem(VillageItem item) {
+    public void removeItem(DomsItem item) {
         this.initGUI();
         ItemStack is = null;
         for(ItemStack i : this.bankGUI.getContents()) {
             if(i == null || i.getType() == null || i.getType().equals(Material.AIR)) continue;
-            List<VillageItem> isc = VillageItem.itemStackToVillageItems(i);
-            if(!VillageItem.contains(isc, item)) continue;
+            List<DomsItem> isc = DomsItem.itemStackToDomsItems(i);
+            if(!DomsItem.contains(isc, item)) continue;
             is = i;
         }
         
@@ -119,8 +121,8 @@ public class Bank {
         this.bankGUI.remove(is);
     }
 
-    public void addItem(VillageItem item) throws InvalidItemException {
-        List<VillageItem> items = new ArrayList<VillageItem>();
+    public void addItem(DomsItem item) throws InvalidItemException {
+        List<DomsItem> items = new ArrayList<DomsItem>();
         items.add(item);
         this.addItems(items);
     }

@@ -40,10 +40,10 @@ public class Tax {
     private double money;
     private TaxMultiplierType type;
     private double taxMultiplier;
-    private List<VillageItem> items;
+    private List<DomsItem> items;
     private String name;
     
-    public Tax(String name, String message, double hours, double money, TaxMultiplierType type, double taxMultiplier, List<VillageItem> items) {
+    public Tax(String name, String message, double hours, double money, TaxMultiplierType type, double taxMultiplier, List<DomsItem> items) {
         this.name = name;
         this.message = message;
         this.hours = hours;
@@ -60,7 +60,7 @@ public class Tax {
     public double getMoney() {return this.money;}
     public TaxMultiplierType getMultiplierType() {return this.type;}
     public double getTaxMultiplier() {return this.taxMultiplier;}
-    public List<VillageItem> getItems() {return this.items;}
+    public List<DomsItem> getItems() {return this.items;}
     public String getName() {return this.name;}
     
     private void register() {Tax.registerTax(this);}
@@ -85,8 +85,8 @@ public class Tax {
         return c;
     }
     
-    public List<VillageItem> getRelativeItemsCost(Village v) {
-        List<VillageItem> items = new ArrayList<VillageItem>();
+    public List<DomsItem> getRelativeItemsCost(Village v) {
+        List<DomsItem> items = new ArrayList<DomsItem>();
         
         int c = 1;
         

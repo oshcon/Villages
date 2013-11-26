@@ -6,7 +6,7 @@ import com.domsplace.Villages.Enums.ManagerType;
 import com.domsplace.Villages.Enums.TaxMultiplierType;
 import com.domsplace.Villages.Exceptions.InvalidItemException;
 import com.domsplace.Villages.Objects.Tax;
-import com.domsplace.Villages.Objects.VillageItem;
+import com.domsplace.Villages.Objects.DomsItem;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,8 +45,8 @@ public class UpkeepManager extends DataManager {
             
             List<String> items = new ArrayList<String>();
             
-            items.add("{size:\"20\"}," + new VillageItem(Material.WOOD).toString());
-            items.add("{size:\"10\"}," + new VillageItem(Material.BREAD).toString());
+            items.add("{size:\"20\"}," + new DomsItem(Material.WOOD).toString());
+            items.add("{size:\"10\"}," + new DomsItem(Material.BREAD).toString());
             
             this.upkeep.set("maintax.items", items);
         }
@@ -69,13 +69,13 @@ public class UpkeepManager extends DataManager {
             }
             
             double mult = upkeep.getDouble(key + ".multiplier.amount", 2d);
-            List<VillageItem> items;
+            List<DomsItem> items;
             
             try {
-                items = VillageItem.createAllItems(upkeep.getStringList(key + ".items"));
+                items = DomsItem.createAllItems(upkeep.getStringList(key + ".items"));
             } catch(InvalidItemException e) {
                 log("Tax Data for " + key + " contains an invalid item! \"" + e.getItemData() + "\"");
-                items = new ArrayList<VillageItem>();
+                items = new ArrayList<DomsItem>();
             }
             
             Tax t = new Tax(key, message, hours, money, type, mult, items);

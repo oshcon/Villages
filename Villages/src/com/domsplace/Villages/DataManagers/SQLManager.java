@@ -177,6 +177,10 @@ public class SQLManager extends DataManager {
         String alter = "ALTER TABLE `%db%`.`%t%Items` CHANGE `ID` `ID` VARCHAR(200) NOT NULL ;";
         this.query(alter);
         
+        //Pre 2.14: Change Enchantments Table ID from Int to String and ID to Name
+        alter = "ALTER TABLE `%db%`.`%t%ItemEnchantments` CHANGE `EnchantmentID` `EnchantmentName` VARCHAR(96) NOT NULL;";
+        this.query(alter);
+        
         Base.useSQL = true;
     }
 

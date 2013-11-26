@@ -46,7 +46,7 @@ itemenchants: '
   CREATE TABLE IF NOT EXISTS `%db%`.`%t%ItemEnchantments` (
     `ItemEnchantmentID` int(11) NOT NULL AUTO_INCREMENT,
     `ItemID` int(11) NOT NULL,
-    `EnchantmentID` int(5) NOT NULL,
+    `EnchantmentName` varchar(96) NOT NULL,
     `EnchantmentLevel` int(5) NOT NULL,
     CONSTRAINT `ItemEnchantmentPrimaryKey` PRIMARY KEY (`ItemEnchantmentID`),
     CONSTRAINT `ItemEnchantmentToItemFK` FOREIGN KEY (`ItemID`) REFERENCES `%db%`.`%t%Items`(`ItemID`)

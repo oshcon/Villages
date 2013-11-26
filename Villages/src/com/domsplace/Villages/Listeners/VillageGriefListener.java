@@ -16,6 +16,7 @@ public class VillageGriefListener extends VillageListener {
     public void blockVillageInteracting(GriefEvent e) {
         if(!e.getType().equals(GriefType.INTERACT)) return;
         if(getConfig().getBoolean("protection.grief.village.use", true)) return;
+        if(Base.hasPermission(e.getPlayer(), Base.OVERRIDE_PERMISSION)) return;
         Resident resident = Resident.getResident(e.getPlayer());
         Village residentsVillage = Village.getPlayersVillage(resident);
         Region region = Region.getRegion(e.getBlock().getLocation());
@@ -30,6 +31,7 @@ public class VillageGriefListener extends VillageListener {
     public void blockVillageBreaking(GriefEvent e) {
         if(!e.getType().equals(GriefType.BREAK)) return;
         if(getConfig().getBoolean("protection.grief.village.break", true)) return;
+        if(Base.hasPermission(e.getPlayer(), Base.OVERRIDE_PERMISSION)) return;
         Resident resident = Resident.getResident(e.getPlayer());
         Village residentsVillage = Village.getPlayersVillage(resident);
         Region region = Region.getRegion(e.getBlock().getLocation());
@@ -44,6 +46,7 @@ public class VillageGriefListener extends VillageListener {
     public void blockVillagePlacing(GriefEvent e) {
         if(!e.getType().equals(GriefType.PLACE)) return;
         if(getConfig().getBoolean("protection.grief.village.place", true)) return;
+        if(Base.hasPermission(e.getPlayer(), Base.OVERRIDE_PERMISSION)) return;
         Resident resident = Resident.getResident(e.getPlayer());
         Village residentsVillage = Village.getPlayersVillage(resident);
         Region region = Region.getRegion(e.getBlock().getLocation());
@@ -58,6 +61,7 @@ public class VillageGriefListener extends VillageListener {
     public void blockVillageMining(GriefEvent e) {
         if(!e.getType().equals(GriefType.BLOCK_DAMAGE)) return;
         if(getConfig().getBoolean("protection.grief.village.mine", true)) return;
+        if(Base.hasPermission(e.getPlayer(), Base.OVERRIDE_PERMISSION)) return;
         Resident resident = Resident.getResident(e.getPlayer());
         Village residentsVillage = Village.getPlayersVillage(resident);
         Region region = Region.getRegion(e.getBlock().getLocation());

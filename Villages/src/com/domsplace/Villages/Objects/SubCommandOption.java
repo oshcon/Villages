@@ -107,7 +107,7 @@ public class SubCommandOption extends Base {
     }
     
     public static String reverse(String s, CommandSender sender) {
-        if(Bukkit.getPlayer(s) != null) return SubCommandOption.PLAYERS_OPTION.option;
+        if(Base.getPlayer(sender, s) != null) return SubCommandOption.PLAYERS_OPTION.option;
         if(Village.getVillage(s) != null) return SubCommandOption.VILLAGES_OPTION.option;
         if(Resident.guessResident(s) != null) return SubCommandOption.RESIDENTS_OPTION.option;
         if(Tax.getTaxByName(s) != null) return SubCommandOption.TAXES_OPTION.option;

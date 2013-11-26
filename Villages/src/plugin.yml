@@ -4,7 +4,7 @@ main: com.domsplace.Villages.VillagesPlugin
 author: Dominic
 authors: [Dominic, Jordan]
 website: http://domsplace.com/
-version: '2.13'
+version: '2.14'
 load: POSTWORLD
 softdepend: [WorldGuard, Vault, TagAPI, Herochat, PermissionsEx, EssentialsChat, DomsCommands, dynmap]
 commands:
@@ -69,6 +69,7 @@ permissions:
        Villages.admin.setmayor: true
        Villages.admin.setname: true
        Villages.admin.setdescription: true
+       Villages.admin.override: true
    Villages.admin.save:
      description: Allows access to save all Data.
    Villages.admin.reload:
@@ -87,6 +88,8 @@ permissions:
      description: Allows access to set the Name of a Village.
    Villages.admin.setdescription:
      description: Allows access to set the Description of a Village.
+   Villages.admin.override:
+     description: Allows access to bypass all protections.
    Villages.mayor.*:
      description: Allows access to all Mayor Commands
      children:

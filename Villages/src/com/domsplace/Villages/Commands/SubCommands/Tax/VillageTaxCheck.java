@@ -9,7 +9,7 @@ import com.domsplace.Villages.Bases.SubCommand;
 import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Tax;
 import com.domsplace.Villages.Objects.Village;
-import com.domsplace.Villages.Objects.VillageItem;
+import com.domsplace.Villages.Objects.DomsItem;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,12 +45,12 @@ public class VillageTaxCheck extends SubCommand {
             
             messages.addAll(gk("taxinfo", t));
             
-            if(Base.useEconomy && Base.getConfig().getBoolean("features.banks.money", true)) {
+            if(Base.useEconomy() && Base.getConfig().getBoolean("features.banks.money", true)) {
                 messages.add("\tDue Money: " + PluginHook.VAULT_HOOK.formatEconomy(t.getRelativeCost(v)));
             }
             
             if(Base.getConfig().getBoolean("features.banks.item", true)) {
-                List<String> ss = VillageItem.getHumanMessages(t.getRelativeItemsCost(v));
+                List<String> ss = DomsItem.getHumanMessages(t.getRelativeItemsCost(v));
                 for(String s : ss) {
                     messages.add("\tItem Due: " + s);
                 }

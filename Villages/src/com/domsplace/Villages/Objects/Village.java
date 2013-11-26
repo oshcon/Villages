@@ -233,7 +233,7 @@ public class Village {
     public int getValue() {
         int v = this.getRegions().size();
         v += this.residents.size();
-        if(Base.useEconomy) v += this.getBank().getWealth();
+        if(Base.useEconomy()) v += this.getBank().getWealth();
         //TODO: Add ItemBank stuff here
         return v;
     }

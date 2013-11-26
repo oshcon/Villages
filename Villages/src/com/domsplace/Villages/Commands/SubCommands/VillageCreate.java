@@ -66,7 +66,7 @@ public class VillageCreate extends SubCommand {
         }
         
         //Make sure they have enough
-        if(Base.useEconomy && !hasBalance(sender.getName(), getCost("createvillage"))) {
+        if(Base.useEconomy() && !hasBalance(sender.getName(), getCost("createvillage"))) {
             sk(sender, "notenoughmoney", PluginHook.VAULT_HOOK.formatEconomy(getCost("createvillage")));
             return true;
         }
@@ -103,7 +103,7 @@ public class VillageCreate extends SubCommand {
         if(event.isCancelled()) return true;
         
         //Charge Players Wallet
-        if(Base.useEconomy) {
+        if(Base.useEconomy()) {
             PluginHook.VAULT_HOOK.getEconomy().withdrawPlayer(sender.getName(), getCost("createvillage"));
         }
         

@@ -93,14 +93,13 @@ public class VaultHook extends PluginHook {
     public void onHook() {
         super.onHook();
         this.setupEconomy();
-        Base.useEconomy = this.economy != null;
-        if(Base.useEconomy) {
-            if(getConfig().getBoolean("features.banks.money", true)) {
+        if(Base.useEconomy()) {
+            if(Base.getConfig().getBoolean("features.banks.money", true)) {
                 bankDeposit = new VillageBankDeposit();
                 bankWithdraw = new VillageBankWithdraw();
             }
         } else if(this.isHooked()) {
-            log("Hooked into Vault, but can't find any Economy!");
+            Base.log("Hooked into Vault, but can't find any Economy!");
         }
         
         //Hook Into VaultPermissions
@@ -115,7 +114,6 @@ public class VaultHook extends PluginHook {
         economy = null;
         permission = null;
         chat = null;
-        Base.useEconomy = false;
         
         if(bankDeposit != null) {
             bankDeposit.deRegister();
@@ -129,7 +127,7 @@ public class VaultHook extends PluginHook {
     }
     
     public String formatEconomy(double amt) {
-        if(!Base.useEconomy) return "\\\\\\\\\\\\$" + amt;
+        if(!Base.useEconomy()) return "\\\\\\\\\\\\$" + amt;
         String formatted = this.getEconomy().format(amt);
         formatted = formatted.replaceAll("\\$", "\\\\\\$");  
         return formatted;

@@ -1,6 +1,7 @@
 package com.domsplace.Villages.Bases;
 
 import com.domsplace.BansUtils;
+import com.domsplace.Villages.Hooks.VaultHook;
 import com.domsplace.DomsCommands.Objects.DomsPlayer;
 import com.domsplace.Villages.Enums.ExpandMethod;
 import com.domsplace.Villages.GUI.VillagesGUIManager;
@@ -26,6 +27,7 @@ import org.bukkit.entity.Player;
 
 public class Base extends RawBase {
     public static final String TAB = "    ";
+    public static final String OVERRIDE_PERMISSION = "Villages.admin.override";
     
     public static String GUIScreen;
     
@@ -58,8 +60,11 @@ public class Base extends RawBase {
     public static boolean useSQL = false;
     public static boolean useWorldGuard = false;
     public static boolean useTagAPI = false;
-    public static boolean useEconomy = false;
     public static boolean useScoreboards = false;
+    
+    public static boolean useEconomy() {
+        return PluginHook.VAULT_HOOK.isHooked() && PluginHook.VAULT_HOOK.getEconomy() != null;
+    }
 
     //String Utils
     public static String getPrefix() {
@@ -321,6 +326,30 @@ public class Base extends RawBase {
         return (Player) o;
     }
     
+    public static Player getPlayer(CommandSender sender, String argument) {
+        for(Player plyr : Bukkit.getOnlinePlayers()) {
+            if(!canSee(sender, plyr)) continue;
+            if(plyr.getName().toLowerCase().startsWith(argument.toLowerCase())) {
+                return plyr;
+            }
+        }
+        
+        for(Player plyr : Bukkit.getOnlinePlayers()) {
+            if(!canSee(sender, plyr)) continue;
+            if(plyr.getName().toLowerCase().contains(argument.toLowerCase())) {
+                return plyr;
+            }
+        }
+        
+        for(Player plyr : Bukkit.getOnlinePlayers()) {
+            if(!canSee(sender, plyr)) continue;
+            if(plyr.getDisplayName().toLowerCase().contains(argument.toLowerCase())) {
+                return plyr;
+            }
+        }
+        return null;
+    }
+    
     public static OfflinePlayer getOfflinePlayer(Player player) {
         return Bukkit.getOfflinePlayer(player.getName());
     }
@@ -453,6 +482,36 @@ public class Base extends RawBase {
     }
     
     //Player Utils
+    public static boolean hasPermission(Entity e, String perm) {
+        if(!isPlayer(e)) return true;
+        return hasPermission(getPlayer(e), perm);
+    }
+    
+    public static boolean hasPermission(OfflinePlayer sender, String permission) {
+        if(permission.equals("Villages.none")) return true;
+        
+        //PermissionsEx Permission Checking
+        if(PluginHook.PEX_HOOK.isHooked()) {
+            return PluginHook.PEX_HOOK.hasPermission(sender.getName(), permission);
+        }
+        
+        World world = Bukkit.getWorlds().get(0);
+        if(sender.isOnline()) {
+            world = sender.getPlayer().getWorld();
+        }
+        
+        //Vault Permission Checking
+        if(PluginHook.VAULT_HOOK.isHooked() && PluginHook.VAULT_HOOK.getPermission() != null) {
+            return PluginHook.VAULT_HOOK.getPermission().playerHas(world, sender.getName(), permission);
+        }
+        
+        if(!sender.isOnline()) return false;
+        
+        return hasPermission(sender.getPlayer(), permission);
+    }
+    
+    public static boolean hasPermission(Player sender, String permission) {return hasPermission((CommandSender) sender, permission);}
+    
     public static boolean hasPermission(CommandSender sender, String permission) {
         debug("Checking if " + sender.getName() + " has permission " + permission);
         if(permission.equals("Villages.none")) return true;
@@ -528,24 +587,24 @@ public class Base extends RawBase {
     
     //Economy Utils
     public static boolean hasBalance(String player, double amt) {
-        if(!useEconomy || PluginHook.VAULT_HOOK.getEconomy() == null) return true;
+        if(!useEconomy() || PluginHook.VAULT_HOOK.getEconomy() == null) return true;
         if(getBalance(player) >= amt) return true;
         return false;
     }
     
     public static boolean hasBalance(Village village, double amt) {
-        if(!useEconomy || PluginHook.VAULT_HOOK.getEconomy() == null) return true;
+        if(!useEconomy() || PluginHook.VAULT_HOOK.getEconomy() == null) return true;
         if(getBalance(village) >= amt) return true;
         return false;
     }
     
     public static double getBalance(String player) {
-        if(!useEconomy || PluginHook.VAULT_HOOK.getEconomy() == null) return -1.0d;
+        if(!useEconomy() || PluginHook.VAULT_HOOK.getEconomy() == null) return -1.0d;
         return PluginHook.VAULT_HOOK.getEconomy().getBalance(player);
     }
     
     public static double getBalance(Village village) {
-        if(!useEconomy || PluginHook.VAULT_HOOK.getEconomy() == null) return -1.0d;
+        if(!useEconomy() || PluginHook.VAULT_HOOK.getEconomy() == null) return -1.0d;
         return village.getBank().getWealth();
     }
     
