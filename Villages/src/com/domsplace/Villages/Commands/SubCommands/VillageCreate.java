@@ -6,6 +6,7 @@ import com.domsplace.Villages.Bases.BukkitCommand;
 import com.domsplace.Villages.Bases.DataManager;
 import com.domsplace.Villages.Bases.PluginHook;
 import com.domsplace.Villages.Bases.SubCommand;
+import com.domsplace.Villages.Objects.DomsLocation;
 import com.domsplace.Villages.Objects.Region;
 import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Village;
@@ -74,24 +75,25 @@ public class VillageCreate extends SubCommand {
         //"Create" a village
         Village village = new Village();
         Resident player = Resident.getResident(getPlayer(sender));
-        Region spawn = Region.getRegion(getPlayer(sender));
+        DomsLocation spawn = new DomsLocation(getPlayer(sender));
+        Region spawnRegion = Region.getRegion(spawn);
         
         village.setName(name);
         village.setMayor(player);
-        village.addRegion(spawn);
+        village.addRegion(spawnRegion);
         village.setSpawn(spawn);
         
         if(player == null || spawn == null) return false;
         
         //Check for Overlapping
-        if(Village.doesRegionOverlapVillage(spawn)) {
+        if(Village.doesRegionOverlapVillage(spawnRegion)) {
             sk(sender, "createvillageoverlap");
             return true;
         }
         
         //Check for WorldGuard Overlapping
         if(Base.useWorldGuard) {
-            if(PluginHook.WORLD_GUARD_HOOK.isOverlappingRegion(spawn)) {
+            if(PluginHook.WORLD_GUARD_HOOK.isOverlappingRegion(spawnRegion)) {
                 sk(sender, "createvillageregionoverlap");
                 return true;
             }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -87,7 +88,7 @@ public class Village {
     
     private Resident mayor;
     private Bank bank;
-    private Region spawn;
+    private DomsLocation spawn;
     private VillageMap map;
     
     private List<Region> regions;
@@ -102,12 +103,13 @@ public class Village {
         this.residents = new ArrayList<Resident>();
         this.taxData = new ArrayList<TaxData>();
         this.createdDate = Base.getNow();
+        this.description = "Welcome!";
     }
     
     public String getName() {return this.name;}
     public String getDescription() {return this.description;}
     public Resident getMayor() {return this.mayor;}
-    public Region getSpawn() {return this.spawn;}
+    public DomsLocation getSpawn() {return this.spawn;}
     public Bank getBank() {return this.bank;}
     public long getCreatedDate() {return this.createdDate;}
     
@@ -119,7 +121,7 @@ public class Village {
     public void setName(String name) {this.name = name; this.bank.updateGUI();}
     public void setDescription(String description) {this.description = description;}
     public void setMayor(Resident mayor) {this.mayor = mayor; this.addResident(mayor);}
-    public void setSpawn(Region region) {this.addRegion(region); this.spawn = region;}
+    public void setSpawn(DomsLocation region) {this.spawn = region;}
     public void setCreatedDate(long date) {this.createdDate = date;}
     
     public void addRegion(Region region) {if(this.regions.contains(region)) {return;} this.regions.add(region);}
@@ -168,6 +170,10 @@ public class Village {
         }
         return reg;
     }
+
+    public Region getSpawnRegion() {
+        return Region.getRegion(this.spawn.toLocation());
+    }
     
     public List<Player> getOnlineResidents() {
         List<Player> players = new ArrayList<Player>();
@@ -209,6 +215,10 @@ public class Village {
     public void addRegions(Collection<Region> claiming) {
         this.regions.addAll(claiming);
     }
+
+    public void removeRegions(Collection<Region> claiming) {
+        this.regions.removeAll(claiming);
+    }
     
     public void explode() {
         //WARNING! Can be CPU intensive
@@ -243,6 +253,60 @@ public class Village {
             if(p.getRegion().compare(standing)) return p;
         }
         return null;
+    }
+    
+    public List<Location> getBorderLocations() {
+        List<Location> locs = new ArrayList<Location>();
+        if(!this.getSpawn().isWorldLoaded()) return locs;
+        for(Region r : this.regions) {
+            Region north = r.getRelativeRegion(0, 1);
+            Region south = r.getRelativeRegion(0, -1);
+            Region east = r.getRelativeRegion(1, 0);
+            Region west = r.getRelativeRegion(-1, 0);
+            
+            boolean n = this.isRegionOverlappingVillage(north);
+            boolean s = this.isRegionOverlappingVillage(south);
+            boolean e = this.isRegionOverlappingVillage(east);
+            boolean w = this.isRegionOverlappingVillage(west);
+            
+            if(n && s && e && w) continue;
+            
+            int m = 255;
+            
+            if(!n) {
+                for(int i = r.getMinX(); i < r.getMaxX(); i++) {
+                    Location l = r.getBukkitWorld().getBlockAt(i, m, r.getMaxZ()).getLocation();
+                    DomsLocation safe = new DomsLocation(l);
+                    locs.add(safe.getSafeLocation().toLocation());
+                }
+            }
+            
+            if(!s) {
+                for(int i = r.getMinX(); i < r.getMaxX(); i++) {
+                    Location l = r.getBukkitWorld().getBlockAt(i, m, r.getMinZ()).getLocation();
+                    DomsLocation safe = new DomsLocation(l);
+                    locs.add(safe.getSafeLocation().toLocation());
+                }
+            }
+            
+            if(!e) {
+                for(int i = r.getMinZ(); i < r.getMaxZ(); i++) {
+                    Location l = r.getBukkitWorld().getBlockAt(r.getMaxX(), m, i).getLocation();
+                    DomsLocation safe = new DomsLocation(l);
+                    locs.add(safe.getSafeLocation().toLocation());
+                }
+            }
+            
+            if(!w) {
+                for(int i = r.getMinZ(); i < r.getMaxZ(); i++) {
+                    Location l = r.getBukkitWorld().getBlockAt(r.getMinX(), m, i).getLocation();
+                    DomsLocation safe = new DomsLocation(l);
+                    locs.add(safe.getSafeLocation().toLocation());
+                }
+            }
+        }
+        
+        return locs;
     }
     
     public void delete() {

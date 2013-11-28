@@ -26,6 +26,7 @@ public class VillageCommand extends BukkitCommand {
         this.addSubCommandOption(new SubCommandOption("mesage", "message"));
         this.addSubCommandOption(new SubCommandOption("spawn"));
         this.addSubCommandOption(new SubCommandOption("top"));
+        this.addSubCommandOption(new SubCommandOption("border"));
         
         //Admin Commands
         this.addSubCommandOption(new SubCommandOption("admin",
@@ -56,6 +57,7 @@ public class VillageCommand extends BukkitCommand {
         this.addSubCommandOption(new SubCommandOption("mayor",
             "close",
             "expand",
+            "shrink",
             new SubCommandOption("explode", "YES"),
             new SubCommandOption("kick", SubCommandOption.RESIDENTS_OPTION),
             new SubCommandOption("set", 

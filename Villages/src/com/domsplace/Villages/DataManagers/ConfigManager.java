@@ -6,7 +6,6 @@ import com.domsplace.Villages.Bases.PluginHook;
 import com.domsplace.Villages.Enums.ExpandMethod;
 import com.domsplace.Villages.Enums.ManagerType;
 import com.domsplace.Villages.Events.VillagesPluginReloadedEvent;
-import com.domsplace.Villages.GUI.VillagesGUIManager;
 import com.domsplace.Villages.Objects.VillageMapRenderer;
 import com.domsplace.Villages.Threads.VillageScoreboardThread;
 import java.awt.GraphicsEnvironment;
@@ -86,7 +85,6 @@ public class ConfigManager extends DataManager {
         df("protection.grief.wilderness.mine", true);
         df("protection.grief.wilderness.tnt", false);
         
-        
         df("protection.pvp.village.samevillage", false);
         df("protection.pvp.village.differentvillage", true);
         df("protection.pvp.village.notinvillage", false);
@@ -113,14 +111,14 @@ public class ConfigManager extends DataManager {
         for(EntityType t : EntityType.values()) {
             if(t == null || t.name() == null) continue;
             if(!t.isAlive()) continue;
-            df(mobspawningkey + t.name(), true);
+            df(mobkillingkey + t.name(), true);
         }
         
         mobkillingkey = "protection.mobattacking.wilderness.";
         for(EntityType t : EntityType.values()) {
             if(t == null || t.name() == null) continue;
             if(!t.isAlive()) continue;
-            df(mobspawningkey + t.name(), false);
+            df(mobkillingkey + t.name(), false);
         }
         
         //PLANNED:

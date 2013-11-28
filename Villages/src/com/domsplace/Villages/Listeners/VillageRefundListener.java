@@ -21,6 +21,7 @@ import static com.domsplace.Villages.Bases.Base.getConfig;
 import com.domsplace.Villages.Bases.VillageListener;
 import com.domsplace.Villages.Enums.DeleteCause;
 import com.domsplace.Villages.Events.VillageDeletedEvent;
+import com.domsplace.Villages.Events.VillageShrinkEvent;
 import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Village;
 import org.bukkit.event.EventHandler;
@@ -44,4 +45,17 @@ public class VillageRefundListener extends VillageListener {
         }
     }
     
+    @EventHandler(ignoreCancelled=true)
+    public void handleVillageShrunk(VillageShrinkEvent e) {
+        Resident r = e.getVillage().getMayor();
+        Village v = e.getVillage();
+        if(Base.useEcon()) {
+            double refund = getConfig().getDouble("refund.closevillageperchunk", 0.0d) * ((double) e.getRegions().size());
+            if(getConfig().getBoolean("features.banks.money", true)) {
+                v.getBank().addWealth(refund);
+            } else {
+                chargePlayer(e.getExpander(), refund);
+            }
+        }
+    }
 }

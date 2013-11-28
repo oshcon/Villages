@@ -63,7 +63,7 @@ public class VillageMapRenderer extends MapRenderer {
         mv.setScale(USED_SCALE);
         
         
-        Location spawn = map.getVillage().getSpawn().getSafeMiddle();
+        Location spawn = map.getVillage().getSpawnRegion().getSafeMiddle();
         mv.setCenterX(Integer.MIN_VALUE);
         mv.setCenterZ(Integer.MIN_VALUE);
         

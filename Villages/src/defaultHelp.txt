@@ -8,6 +8,7 @@ village help|Shows basic information about the Villages plugin (needs work)
 village leave|Leave whatever Village you're in (have to resign as mayor first)
 village list|Shows a list of known Villages
 village lookup [player]|Lookup a specifc player and what Village they're in (if any)
+village border|Show or hide the Village border.
 village map|Shows the Village Map (Gives you a map)
 village top|Shows the top 5 Villages based off wealth and resident count
 village spawn|Takes you to the Village's spawn
@@ -27,7 +28,8 @@ village bank withdraw [amount]|Withdraw [amount] from the Village bank
 village bank open|Opens the Village bank to store and withdraw items
 village mayor|Get basic information about Village (same as /village, but shows if you're mayor or not)
 village mayor close|Closes the Village! (no refunds, no items kept and no money saved!)
-village mayor expand|Expand the Village (see below for more information)
+village mayor expand|Expand the Village (see the bukkit page for more information)
+village mayor shrink|Unclaim a claimed Region
 village mayor explode|EXPLODES the Entire village, this will not delete the village however!
 village mayor kick [player]|Kick a player from the Village, their plots will still be claimed however
 village mayor set description [description]|Set a new Description for the Village

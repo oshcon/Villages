@@ -4,9 +4,9 @@ main: com.domsplace.Villages.VillagesPlugin
 author: Dominic
 authors: [Dominic, Jordan]
 website: http://domsplace.com/
-version: '2.14'
+version: '2.15'
 load: POSTWORLD
-softdepend: [WorldGuard, Vault, TagAPI, Herochat, PermissionsEx, EssentialsChat, DomsCommands, dynmap]
+softdepend: [WorldGuard, Vault, TagAPI, Herochat, PermissionsEx, EssentialsChat, DomsCommands]
 commands:
    village:
       description: Get Information about Villages and change Village options.
@@ -27,6 +27,7 @@ permissions:
        Villages.leave: true
        Villages.villagetop: true
        Villages.lookup: true
+       Villages.border: true
        Villages.map: true
        Villages.admin.*: true
        Villages.mayor.*: true
@@ -55,6 +56,8 @@ permissions:
      description: Allows a player to check the top Villages.
    Villages.lookup:
      description: Allows a player to lookup what Village another player belongs to.
+   Villages.border:
+     description: Allows a player to show the Village border.
    Villages.map:
      description: Allows a player to view the Village map (Gives a free map item though).
    Villages.admin.*:
@@ -101,6 +104,7 @@ permissions:
        Villages.mayor.setspawn: true
        Villages.mayor.setname: true
        Villages.mayor.expand: true
+       Villages.mayor.shrink: true
        Villages.mayor.explode: true
    Villages.mayor.command:
      description: Allows access to the Village Mayor command.
@@ -118,6 +122,8 @@ permissions:
      description: Allows access for Mayors to set the spawn of their Village.
    Villages.mayor.expand:
      description: Allows access for Mayors to expand the area of their Village.
+   Villages.mayor.shrink:
+     description: Allows access for Mayors to shrink the area of their Village.
    Villages.mayor.explode:
      description: Allows access for Mayors to explode their entire Village.
    Villages.bank.*:

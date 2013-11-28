@@ -62,10 +62,6 @@ public class Base extends RawBase {
     public static boolean useTagAPI = false;
     public static boolean useScoreboards = false;
     
-    public static boolean useEconomy() {
-        return PluginHook.VAULT_HOOK.isHooked() && PluginHook.VAULT_HOOK.getEconomy() != null;
-    }
-
     //String Utils
     public static String getPrefix() {
         if(!ChatPrefix.contains("§")) ChatPrefix = colorise(ChatPrefix);
@@ -410,6 +406,19 @@ public class Base extends RawBase {
         return Byte.parseByte(o.toString());
     }
     
+    public static boolean isFloat(Object o) {
+        try {
+            Long.parseLong(o.toString());
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+    }
+
+    public static float getFloat(Object o) {
+        return Float.parseFloat(o.toString());
+    }
+    
     public static String listToString(List<String> strings) {
         return listToString(strings, ", ");
     }
@@ -513,7 +522,6 @@ public class Base extends RawBase {
     public static boolean hasPermission(Player sender, String permission) {return hasPermission((CommandSender) sender, permission);}
     
     public static boolean hasPermission(CommandSender sender, String permission) {
-        debug("Checking if " + sender.getName() + " has permission " + permission);
         if(permission.equals("Villages.none")) return true;
         if(!isPlayer(sender)) return true;
         
@@ -615,6 +623,39 @@ public class Base extends RawBase {
     public static String getMoney(double money) {
         return PluginHook.VAULT_HOOK.formatEconomy(money);
     }
+    
+    public static boolean useEconomy() {
+        return PluginHook.VAULT_HOOK.isHooked() && PluginHook.VAULT_HOOK.getEconomy() != null;
+    }
+    
+    public static void chargePlayer(OfflinePlayer player, double amt) {
+        if(player == null) return;
+        chargePlayer(player.getName(), amt);
+    }
+    
+    public static void chargePlayer(Resident player, double amt) {
+        if(player == null) return;
+        chargePlayer(player.getName(), amt);
+    }
+    
+    public static void chargePlayer(CommandSender player, double amt) {
+        if(player == null) return;
+        if(!isPlayer(player)) return;
+        chargePlayer(player.getName(), amt);
+    }
+    
+    public static void chargePlayer(String player, double amt) {
+        if(player == null) return;
+        try {
+            if(amt == 0) return;
+            if(amt < 0) {
+                VaultHook.VAULT_HOOK.getEconomy().depositPlayer(player, -amt);
+            } else if(amt > 0) {
+                VaultHook.VAULT_HOOK.getEconomy().withdrawPlayer(player, amt);
+            }
+        } catch(Exception e) {} catch(Error e) {}
+    }
+
     
     //Time Utils
     public static long getNow() {

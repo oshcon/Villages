@@ -59,17 +59,26 @@ public class Resident {
     }
     
     //Instance
-    private String player;
+    private final String player;
+    private boolean showBorder;
     
     private Resident(String player) {
         this.player = player;
+        this.showBorder = false;
     }
     
     public String getName() {return this.player;}
     public OfflinePlayer getOfflinePlayer() {return Bukkit.getOfflinePlayer(this.player);}
     public Player getPlayer() {return this.getOfflinePlayer().getPlayer();}
+    public boolean getShowBorder() {return this.showBorder;}
+    
+    public void setShowBorder(boolean t) {this.showBorder = t;}
 
     public void teleport(Region spawn) {
         this.getPlayer().teleport(spawn.getSafeMiddle());
+    }
+    
+    public void teleport(DomsLocation spawn) {
+        this.getPlayer().teleport(spawn.toLocation());
     }
 }

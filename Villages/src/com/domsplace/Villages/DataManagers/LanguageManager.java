@@ -5,6 +5,7 @@ import static com.domsplace.Villages.Bases.Base.ChatError;
 import static com.domsplace.Villages.Bases.Base.getDataFolder;
 import com.domsplace.Villages.Bases.DataManager;
 import com.domsplace.Villages.Enums.ManagerType;
+import com.domsplace.Villages.Objects.DomsLocation;
 import com.domsplace.Villages.Objects.Plot;
 import com.domsplace.Villages.Objects.Region;
 import com.domsplace.Villages.Objects.Resident;
@@ -43,6 +44,8 @@ public class LanguageManager extends DataManager {
         cDV("cantfindtax", "%e%Can't find a tax by that name.");
         cDV("cantfindvillage", "%e%Couldn't find Village.");
         cDV("cantkickmayor", "%e%You cannot kick the mayor of the Village.");
+        cDV("cantshrinknotpart", "%e%Can't unclaim this region, it's not part of the Village.");
+        cDV("cantshrinkspawn", "%e%Can't unclaim the Village spawn.");
         cDV("chunkavailable", "%d%This chunk is available!\nPrce: %i%%x%");
         cDV("chunkclaimed", "%d%The %i%Mayor %d%has claimed %i%%r%%d% for you.");
         cDV("chunkclaimedbyplayer", "%e%This plot is claimed by another player.");
@@ -107,6 +110,7 @@ public class LanguageManager extends DataManager {
         cDV("onlymayor", "%e%Only the Mayor can do this.");
         cDV("onlymayorbank", "%e%Only the mayor can edit the village bank.");
         cDV("onlymayorexpand", "%e%Only the mayor can expand the Village.");
+        cDV("onlymayorshrink", "%e%Only the mayor can shrink the Village.");
         cDV("onlymayorexplode", "%e%Only the mayor can explode the Village.");
         cDV("onlymayorplot", "%e%Only the mayor can edit plots.");
         cDV("onlymayorsetmayor", "%e%Only the Mayor can elect the new Mayor.");
@@ -147,10 +151,13 @@ public class LanguageManager extends DataManager {
         cDV("villagenamechaned", "New Village name is now %i%%v%%d%!");
         cDV("villagenameused", "%e%This Village name is already in use or is reserved.");
         cDV("villages", "%i%Villages: %d%%x%");
+        cDV("villageshrunk", "Unlcaimed %i%%x% Regions%d% from the Village.");
         cDV("welcomevillage", "");
         cDV("wildernessvillageneter", "Traveller %i%%p% %d%has entered the Village!");
         cDV("wildernesswildernessneter", "Traveller %i%%p% %d%left the Village and entered the Wilderness!");
         cDV("withdrawledmoney", "%i%%p% %d%withdrew %i%%x% %d%from the Village Bank.");
+        cDV("showingborder", "%e%Now showing Village borders.");
+        cDV("hidingborder", "%e%No longer showing Village borders.");
         
         this.trySave();
     }
@@ -194,6 +201,7 @@ public class LanguageManager extends DataManager {
         if(newData instanceof Village) return appendKey(oldData, (Village) newData);
         if(newData instanceof Resident) return appendKey(oldData, (Resident) newData);
         if(newData instanceof Region) return appendKey(oldData, (Region) newData);
+        if(newData instanceof Region) return appendKey(oldData, (DomsLocation) newData);
         if(newData instanceof Plot) return appendKey(oldData, (Plot) newData);
         if(newData instanceof Tax) return appendKey(oldData, (Tax) newData);
         
@@ -227,6 +235,10 @@ public class LanguageManager extends DataManager {
     
     private String appendKey(String oldData, Plot r) {
         return oldData.replaceAll("%r%", escape(r.getRegion().toString()));
+    }
+    
+    private String appendKey(String oldData, DomsLocation r) {
+        return oldData.replaceAll("%r%", escape(r.toHumanString()));
     }
     
     private String appendKey(String oldData, Tax r) {

@@ -38,8 +38,8 @@ public class VillageInfo extends SubCommand {
         messages.add(ChatImportant + "Info for " + ChatDefault + v.getName());
         messages.add("\tDescription: " + ChatColor.ITALIC + v.getDescription());
         messages.add("\tMayor: " + ChatColor.ITALIC + v.getMayor().getName());
-        messages.add("\tResidents: " + ChatColor.ITALIC + listToString(v.getResidentsAsString()));
-        messages.add("\tSpawn: " + ChatColor.ITALIC + v.getSpawn().toString());
+        messages.add("\tResidents: " + ChatColor.ITALIC + listToString(v.getResidentsAsString(), ", " + ChatDefault + ChatColor.ITALIC)); //Temp 1.7.2 workaround
+        messages.add("\tSpawn: " + ChatColor.ITALIC + v.getSpawn().toHumanString());
         messages.add("\tSize: " + ChatColor.ITALIC + v.getRegions().size());
         
         if(getConfig().getBoolean("features.plots", false)) messages.add("\tAvailable Plots: " + (v.getAvailablePlots().size()));

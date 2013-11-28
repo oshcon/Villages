@@ -45,6 +45,7 @@ public class VillagesPlugin extends PluginBase {
         new VillageTop();
         new VillageLookup();
         new VillageMapSubCommand();
+        new VillageBorder();
         
         new VillageAdmin();
         new VillageAdminSave();
@@ -71,6 +72,7 @@ public class VillagesPlugin extends PluginBase {
         new VillageMayorExpand();
         new VillageMayorSetSpawn();
         new VillageMayorExplode();
+        new VillageMayorShrink();
         
         new VillagePlotCheck();
         new VillagePlotClaim();
@@ -86,6 +88,7 @@ public class VillagesPlugin extends PluginBase {
         new ConfigSaveThread();
         new UpdateThread();
         new UpkeepThread();
+        new VillageBorderThread();
         
         //Load Listeners
         new CustomEventListener();

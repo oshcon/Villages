@@ -22,8 +22,7 @@ public class VillageSpawn extends SubCommand {
         Village v = Village.getPlayersVillage(r);
         if(v == null) {sk(sender, "notinvillage");return true;}
         
-        Region spawn = v.getSpawn();
-        r.teleport(spawn);
+        r.teleport(v.getSpawn().getSafeLocation());
         sk(sender, "goingtovillage");
         return true;
     }

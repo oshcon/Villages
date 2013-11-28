@@ -3,6 +3,7 @@ package com.domsplace.Villages.Commands.SubCommands.Mayor;
 import com.domsplace.Villages.Bases.BukkitCommand;
 import com.domsplace.Villages.Bases.DataManager;
 import com.domsplace.Villages.Bases.SubCommand;
+import com.domsplace.Villages.Objects.DomsLocation;
 import com.domsplace.Villages.Objects.Region;
 import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Village;
@@ -24,7 +25,8 @@ public class VillageMayorSetSpawn extends SubCommand {
         if(v == null) {sk(sender, "notinvillage");return true;}
         if(!v.isMayor(r)) {sk(sender, "onlymayor"); return true;}
         
-        Region re = Region.getRegion(getPlayer(sender).getLocation());
+        DomsLocation spawn = new DomsLocation(getPlayer(sender));
+        Region re = Region.getRegion(spawn);
         if(re == null) return true;
         
         if(!v.isRegionOverlappingVillage(re)) {
@@ -32,7 +34,7 @@ public class VillageMayorSetSpawn extends SubCommand {
             return true;
         }
         
-        v.setSpawn(re);
+        v.setSpawn(spawn);
         sk(sender, "setvillagespawn");
         DataManager.saveAll();
         return true;

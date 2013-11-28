@@ -14,6 +14,10 @@ public class Region extends Base {
         return getRegion(player.getLocation());
     }
     
+    public static Region getRegion(DomsLocation player) {
+        return getRegion(player.toLocation());
+    }
+    
     public static Region getRegion(Location location) {
         return getRegion(location.getBlockX(), location.getBlockZ(), location.getWorld());
     }
@@ -61,8 +65,12 @@ public class Region extends Base {
     public int getRegionX() {return (this.x / RawBase.regionSize);}
     public int getRegionZ() {return (this.z / RawBase.regionSize);}
     public String getWorld() {return this.world;}
+    public int getMinX() {return this.x - RawBase.regionSize;}
+    public int getMinZ() {return this.z - RawBase.regionSize;}
     public int getMaxX() {return this.x + RawBase.regionSize - 1;}
     public int getMaxZ() {return this.z + RawBase.regionSize - 1;}
+    
+    public boolean isWorldLoaded() {return this.getBukkitWorld() != null;}
     
     public boolean compare(Region region) {
         return
@@ -82,7 +90,7 @@ public class Region extends Base {
 
     public Block getLowBlock() {
         World w = this.getBukkitWorld();
-        return w.getBlockAt(this.getX(), 64, this.getZ());
+        return w.getBlockAt(this.getMinX(), 64, this.getMinZ());
     }
 
     public Block getHighBlock() {
@@ -111,8 +119,8 @@ public class Region extends Base {
 
     public Location getSafeMiddle() {
         int y = 256;
-        int x = this.getX() + (this.getMaxX() - this.getX()) / 2;
-        int z = this.getZ() + (this.getMaxZ() - this.getZ()) / 2;
+        int x = this.getX();
+        int z = this.getZ();
         
         Block b = this.getBukkitWorld().getBlockAt(x, y, z);
         Block below;

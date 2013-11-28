@@ -38,6 +38,7 @@ public class DataManager extends Base {
     public static boolean saveAll() {
         for(DataManager dm : MANAGERS) {
             if(dm.getType().equals(ManagerType.CONFIG)) continue;
+            if(dm.getType().equals(ManagerType.LANGUAGE)) continue;
             if(dm.save()) continue;
             return false;
         }
