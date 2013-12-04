@@ -11,6 +11,7 @@ public class ManagerType extends Enum {
     public static final ManagerType VILLAGE = new ManagerType("Village");
     public static final ManagerType VILLAGE_BANK = new ManagerType("Village Bank");
     public static final ManagerType HELP = new ManagerType("Help");
+    public static final ManagerType CRAFT_BUKKIT = new ManagerType("CraftBukkit");
     
     //Instance
     private String type;

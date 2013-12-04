@@ -3,6 +3,7 @@ package com.domsplace.Villages.Bases;
 import com.domsplace.BansUtils;
 import com.domsplace.Villages.Hooks.VaultHook;
 import com.domsplace.DomsCommands.Objects.DomsPlayer;
+import com.domsplace.Villages.DataManagers.CraftBukkitManager;
 import com.domsplace.Villages.Enums.ExpandMethod;
 import com.domsplace.Villages.GUI.VillagesGUIManager;
 import com.domsplace.Villages.Objects.Resident;
@@ -28,6 +29,7 @@ import org.bukkit.entity.Player;
 public class Base extends RawBase {
     public static final String TAB = "    ";
     public static final String OVERRIDE_PERMISSION = "Villages.admin.override";
+    public static final String BUKKIT_PAGE = "http://dev.bukkit.org/bukkit-plugins/villages/";
     
     public static String GUIScreen;
     
@@ -180,7 +182,33 @@ public class Base extends RawBase {
     }
     
     //Messaging Utils
+    public static boolean sendRawMessage(Player player, String message) {
+        if(!CraftBukkitManager.CRAFT_BUKKIT_MANAGER.canFindCraftBukkit()) return false;
+        Class IChatBaseComponent = CraftBukkitManager.CRAFT_BUKKIT_MANAGER.getMineClass("IChatBaseComponent");
+        Class ChatSerializer = CraftBukkitManager.CRAFT_BUKKIT_MANAGER.getMineClass("ChatSerializer");
+        Class PacketPlayOutChat = CraftBukkitManager.CRAFT_BUKKIT_MANAGER.getMineClass("PacketPlayOutChat");
+        Class CraftPlayer = CraftBukkitManager.CRAFT_BUKKIT_MANAGER.getCraftClass("entity.CraftPlayer");
+        Class Packet = CraftBukkitManager.CRAFT_BUKKIT_MANAGER.getMineClass("Packet");
+        Class PlayerConnection = CraftBukkitManager.CRAFT_BUKKIT_MANAGER.getMineClass("PlayerConnection");
+        if(IChatBaseComponent == null || ChatSerializer == null || PacketPlayOutChat == null || CraftPlayer == null) return false;
+        
+        try {
+            Object comp = ChatSerializer.getDeclaredMethod("a", String.class).invoke(null, message);
+            Object packet = PacketPlayOutChat.getDeclaredConstructor(IChatBaseComponent, boolean.class).newInstance(comp, true);
+            Object cPlayer = CraftPlayer.cast(player);
+            Object handle = CraftPlayer.getMethod("getHandle").invoke(cPlayer);
+            Object playerConnection = handle.getClass().getDeclaredField("playerConnection").get(handle);
+            PlayerConnection.getDeclaredMethod("sendPacket", Packet).invoke(playerConnection, packet);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+    }
     public static void sendMessage(CommandSender sender, String msg) {
+        sendMessage(sender, msg, true);
+    }
+    
+    public static void sendMessage(CommandSender sender, String msg, boolean loopback) {
         if(msg.replaceAll(" ", "").equalsIgnoreCase("")) return;
         if(!inVillageWorld(sender)) return;
         msg = msg.replaceAll("\\t", TAB);
