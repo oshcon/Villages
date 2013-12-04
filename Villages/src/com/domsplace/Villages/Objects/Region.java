@@ -41,8 +41,8 @@ public class Region extends Base {
     }
     
     public static Region getRegion(int x, int z, String world) {
-        x = (int)Math.floor(x / RawBase.regionSize)* RawBase.regionSize;
-        z = (int)Math.floor(z / RawBase.regionSize) * RawBase.regionSize;
+        x = (int)(Math.floor((double)x / (double)RawBase.regionSize) * (double)RawBase.regionSize);
+        z = (int)(Math.floor((double)z / (double)RawBase.regionSize)  * (double)RawBase.regionSize);
         return new Region(x, z, world);
     }
     
@@ -65,8 +65,8 @@ public class Region extends Base {
     public int getRegionX() {return (this.x / RawBase.regionSize);}
     public int getRegionZ() {return (this.z / RawBase.regionSize);}
     public String getWorld() {return this.world;}
-    public int getMinX() {return this.x - RawBase.regionSize;}
-    public int getMinZ() {return this.z - RawBase.regionSize;}
+    //public int getMinX() {return this.x - RawBase.regionSize;}
+    //public int getMinZ() {return this.z - RawBase.regionSize;}
     public int getMaxX() {return this.x + RawBase.regionSize - 1;}
     public int getMaxZ() {return this.z + RawBase.regionSize - 1;}
     
@@ -90,7 +90,7 @@ public class Region extends Base {
 
     public Block getLowBlock() {
         World w = this.getBukkitWorld();
-        return w.getBlockAt(this.getMinX(), 64, this.getMinZ());
+        return w.getBlockAt(this.getX(), 64, this.getZ());
     }
 
     public Block getHighBlock() {
@@ -119,8 +119,8 @@ public class Region extends Base {
 
     public Location getSafeMiddle() {
         int y = 256;
-        int x = this.getX();
-        int z = this.getZ();
+        int x = this.getX() + (Base.regionSize / 2) - 1;
+        int z = this.getZ() + (Base.regionSize / 2) - 1;
         
         Block b = this.getBukkitWorld().getBlockAt(x, y, z);
         Block below;

@@ -42,6 +42,7 @@ public class VillageTop extends SubCommand {
         int i = 1;
         for(Village v : top) {
             messages.add("\t#" + i + ": " + ChatImportant + v.getName());
+            i++;
         }
         
         sendMessage(sender, messages);

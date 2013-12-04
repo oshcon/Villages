@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
@@ -274,7 +275,7 @@ public class Village {
             int m = 255;
             
             if(!n) {
-                for(int i = r.getMinX(); i < r.getMaxX(); i++) {
+                for(int i = r.getX(); i < r.getMaxX(); i++) {
                     Location l = r.getBukkitWorld().getBlockAt(i, m, r.getMaxZ()).getLocation();
                     DomsLocation safe = new DomsLocation(l);
                     locs.add(safe.getSafeLocation().toLocation());
@@ -282,15 +283,15 @@ public class Village {
             }
             
             if(!s) {
-                for(int i = r.getMinX(); i < r.getMaxX(); i++) {
-                    Location l = r.getBukkitWorld().getBlockAt(i, m, r.getMinZ()).getLocation();
+                for(int i = r.getX(); i < r.getMaxX(); i++) {
+                    Location l = r.getBukkitWorld().getBlockAt(i, m, r.getZ()).getLocation();
                     DomsLocation safe = new DomsLocation(l);
                     locs.add(safe.getSafeLocation().toLocation());
                 }
             }
             
             if(!e) {
-                for(int i = r.getMinZ(); i < r.getMaxZ(); i++) {
+                for(int i = r.getZ(); i < r.getMaxZ(); i++) {
                     Location l = r.getBukkitWorld().getBlockAt(r.getMaxX(), m, i).getLocation();
                     DomsLocation safe = new DomsLocation(l);
                     locs.add(safe.getSafeLocation().toLocation());
@@ -298,8 +299,8 @@ public class Village {
             }
             
             if(!w) {
-                for(int i = r.getMinZ(); i < r.getMaxZ(); i++) {
-                    Location l = r.getBukkitWorld().getBlockAt(r.getMinX(), m, i).getLocation();
+                for(int i = r.getZ(); i < r.getMaxZ(); i++) {
+                    Location l = r.getBukkitWorld().getBlockAt(r.getX(), m, i).getLocation();
                     DomsLocation safe = new DomsLocation(l);
                     locs.add(safe.getSafeLocation().toLocation());
                 }
@@ -307,6 +308,57 @@ public class Village {
         }
         
         return locs;
+    }
+    
+    public void playBorderEffect(Player player) {
+        if(!this.getSpawn().isWorldLoaded()) return;
+        for(Region r : this.regions) {
+            Region north = r.getRelativeRegion(0, 1);
+            Region south = r.getRelativeRegion(0, -1);
+            Region east = r.getRelativeRegion(1, 0);
+            Region west = r.getRelativeRegion(-1, 0);
+            
+            boolean n = this.isRegionOverlappingVillage(north);
+            boolean s = this.isRegionOverlappingVillage(south);
+            boolean e = this.isRegionOverlappingVillage(east);
+            boolean w = this.isRegionOverlappingVillage(west);
+            
+            if(n && s && e && w) continue;
+            
+            int m = 255;
+            
+            if(!n) {
+                for(int i = r.getX(); i < r.getMaxX(); i++) {
+                    Location l = r.getBukkitWorld().getBlockAt(i, m, r.getMaxZ()).getLocation();
+                    DomsLocation safe = new DomsLocation(l);
+                    player.playEffect(safe.getSafeLocation().toLocation(), Effect.MOBSPAWNER_FLAMES, null);
+                }
+            }
+            
+            if(!s) {
+                for(int i = r.getX(); i < r.getMaxX(); i++) {
+                    Location l = r.getBukkitWorld().getBlockAt(i, m, r.getZ()).getLocation();
+                    DomsLocation safe = new DomsLocation(l);
+                    player.playEffect(safe.getSafeLocation().toLocation(), Effect.MOBSPAWNER_FLAMES, null);
+                }
+            }
+            
+            if(!e) {
+                for(int i = r.getZ(); i < r.getMaxZ(); i++) {
+                    Location l = r.getBukkitWorld().getBlockAt(r.getMaxX(), m, i).getLocation();
+                    DomsLocation safe = new DomsLocation(l);
+                    player.playEffect(safe.getSafeLocation().toLocation(), Effect.MOBSPAWNER_FLAMES, null);
+                }
+            }
+            
+            if(!w) {
+                for(int i = r.getZ(); i < r.getMaxZ(); i++) {
+                    Location l = r.getBukkitWorld().getBlockAt(r.getX(), m, i).getLocation();
+                    DomsLocation safe = new DomsLocation(l);
+                    player.playEffect(safe.getSafeLocation().toLocation(), Effect.MOBSPAWNER_FLAMES, null);
+                }
+            }
+        }
     }
     
     public void delete() {
