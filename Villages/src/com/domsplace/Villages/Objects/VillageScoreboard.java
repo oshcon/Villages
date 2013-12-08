@@ -69,6 +69,4 @@ public class VillageScoreboard {
         if(!Base.inVillageWorld(player.getPlayer())) return;
         try {this.player.getPlayer().setScoreboard(sc);} catch(Exception e) {return;}
     }
-    
-    
 }

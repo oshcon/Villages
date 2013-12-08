@@ -19,7 +19,7 @@ public class WildernessGriefListener extends VillageListener {
         Region region = Region.getRegion(e.getBlock().getLocation());
         Village village = Village.getOverlappingVillage(region);
         if(village != null) return;
-        Base.sk(e.getPlayer(), "nointeract", village);
+        Base.sk(e.getPlayer(), "nointeract");
         e.setCancelled(true);
     }
     
@@ -31,7 +31,7 @@ public class WildernessGriefListener extends VillageListener {
         Region region = Region.getRegion(e.getBlock().getLocation());
         Village village = Village.getOverlappingVillage(region);
         if(village != null) return;
-        Base.sk(e.getPlayer(), "nointeract", village);
+        Base.sk(e.getPlayer(), "nointeract");
         e.setCancelled(true);
     }
     
@@ -43,7 +43,7 @@ public class WildernessGriefListener extends VillageListener {
         Region region = Region.getRegion(e.getBlock().getLocation());
         Village village = Village.getOverlappingVillage(region);
         if(village != null) return;
-        Base.sk(e.getPlayer(), "nointeract", village);
+        Base.sk(e.getPlayer(), "nointeract");
         e.setCancelled(true);
     }
     
@@ -55,7 +55,7 @@ public class WildernessGriefListener extends VillageListener {
         Region region = Region.getRegion(e.getBlock().getLocation());
         Village village = Village.getOverlappingVillage(region);
         if(village != null) return;
-        Base.sk(e.getPlayer(), "nointeract", village);
+        Base.sk(e.getPlayer(), "nointeract");
         e.setCancelled(true);
     }
     

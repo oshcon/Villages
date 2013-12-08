@@ -205,7 +205,7 @@ public class LanguageManager extends DataManager {
         if(newData instanceof Plot) return appendKey(oldData, (Plot) newData);
         if(newData instanceof Tax) return appendKey(oldData, (Tax) newData);
         
-        return oldData.replaceAll("%x%", escape(newData.toString()));
+        return oldData.replaceAll("%x%", escape(newData));
     }
     
     private String appendKey(String oldData, Player p) {
@@ -245,7 +245,11 @@ public class LanguageManager extends DataManager {
         return oldData.replaceAll("%t%", escape(r.getName()));
     }
     
+    private String escape(Object obj) {
+        return escape("" + obj);
+    }
+    
     private String escape(String obj) {
-        return Matcher.quoteReplacement(obj);
+        return Matcher.quoteReplacement("" + obj);
     }
 }

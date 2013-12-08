@@ -204,6 +204,7 @@ public class Base extends RawBase {
             return false;
         }
     }
+    
     public static void sendMessage(CommandSender sender, String msg) {
         sendMessage(sender, msg, true);
     }
@@ -526,6 +527,7 @@ public class Base extends RawBase {
     
     public static boolean hasPermission(OfflinePlayer sender, String permission) {
         if(permission.equals("Villages.none")) return true;
+        if(sender.isOp()) return true;
         
         //PermissionsEx Permission Checking
         if(PluginHook.PEX_HOOK.isHooked()) {
@@ -550,8 +552,9 @@ public class Base extends RawBase {
     public static boolean hasPermission(Player sender, String permission) {return hasPermission((CommandSender) sender, permission);}
     
     public static boolean hasPermission(CommandSender sender, String permission) {
-        if(permission.equals("Villages.none")) return true;
+        if(permission.equals(getPlugin().getName() + ".none")) return true;
         if(!isPlayer(sender)) return true;
+        if(getPlayer(sender).isOp()) return true;
         
         //PermissionsEx Permission Checking
         if(PluginHook.PEX_HOOK.isHooked()) {

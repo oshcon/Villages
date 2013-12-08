@@ -29,7 +29,7 @@ public class VillageAdminDelete extends SubCommand {
         }
         
         Resident r = null;
-        if(!isPlayer(sender)) {
+        if(isPlayer(sender)) {
             r = Resident.getResident(getPlayer(sender));
         }
         
