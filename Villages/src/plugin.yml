@@ -4,7 +4,7 @@ main: com.domsplace.Villages.VillagesPlugin
 author: Dominic
 authors: [Dominic, Jordan]
 website: http://domsplace.com/
-version: '2.18'
+version: '2.19'
 load: POSTWORLD
 softdepend: [WorldGuard, Vault, TagAPI, Herochat, PermissionsEx, EssentialsChat, DomsCommands]
 commands:
