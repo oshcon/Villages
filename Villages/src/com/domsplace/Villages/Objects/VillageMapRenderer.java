@@ -58,6 +58,7 @@ public class VillageMapRenderer extends MapRenderer {
     @Override
     public void render(MapView mv, MapCanvas mc, Player player) {
         if(this.map == null) return;
+        if(this.map.getVillage() == null) return;
         if(!this.map.getMapView().getRenderers().contains(this)) return;
         //TODO: Finish Rendering.
         mv.setScale(USED_SCALE);

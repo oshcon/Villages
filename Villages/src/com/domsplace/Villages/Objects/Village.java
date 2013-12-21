@@ -363,6 +363,7 @@ public class Village {
     
     public void delete() {
         this.bank.delete();
+        if(this.map != null) this.map.unload();
     }
 
     public TaxData getTaxData(Tax t) {

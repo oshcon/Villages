@@ -17,7 +17,6 @@
 package com.domsplace.Villages.Listeners;
 
 import com.domsplace.Villages.Bases.Base;
-import static com.domsplace.Villages.Bases.Base.Wilderness;
 import com.domsplace.Villages.Bases.VillageListener;
 import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Village;

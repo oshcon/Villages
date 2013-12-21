@@ -528,6 +528,7 @@ public class Base extends RawBase {
     public static boolean hasPermission(OfflinePlayer sender, String permission) {
         if(permission.equals("Villages.none")) return true;
         if(sender.isOp()) return true;
+        if(sender.isOnline()) return hasPermission(sender.getPlayer(), permission);
         
         //PermissionsEx Permission Checking
         if(PluginHook.PEX_HOOK.isHooked()) {
@@ -555,6 +556,7 @@ public class Base extends RawBase {
         if(permission.equals(getPlugin().getName() + ".none")) return true;
         if(!isPlayer(sender)) return true;
         if(getPlayer(sender).isOp()) return true;
+        if(getPlayer(sender).hasPermission(permission)) return true;
         
         //PermissionsEx Permission Checking
         if(PluginHook.PEX_HOOK.isHooked()) {
@@ -604,7 +606,7 @@ public class Base extends RawBase {
         try {if(PluginHook.SEL_BANS_HOOK.isHooked() && !BansUtils.CanPlayerTalk(player)) return true;}catch(Error e) {} catch(Exception e) {}
         try {if(PluginHook.DOMS_COMMANDS_HOOK.isHooked() && DomsPlayer.getPlayer(player).isMuted()) return true;}catch(Error e) {}catch(Exception e){}
         try {if(PluginHook.HERO_CHAT_HOOK.isHooked() && Herochat.getChatterManager().getChatter(player.getName()).isMuted()) return true;}catch(Error e) {} catch(Exception e) {}
-        return true;
+        return false;
     }
     
     //Language Utils

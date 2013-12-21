@@ -4,7 +4,7 @@ main: com.domsplace.Villages.VillagesPlugin
 author: Dominic
 authors: [Dominic, Jordan]
 website: http://domsplace.com/
-version: '2.17'
+version: '2.18'
 load: POSTWORLD
 softdepend: [WorldGuard, Vault, TagAPI, Herochat, PermissionsEx, EssentialsChat, DomsCommands]
 commands:
@@ -15,6 +15,7 @@ commands:
 permissions:
    Villages.*:
      description: Gives access to all Villages permissions.
+     default: false
      children:
        Villages.village: true
        Villages.list: true
@@ -36,32 +37,46 @@ permissions:
        Villages.tax.*: true
    Villages.village:
      description: Allows access to the Villages command.
+     default: true
    Villages.list:
      description: Allows access to view the Villages list.
+     default: true
    Villages.create:
      description: Allows access to create a Village.
+     default: true
    Villages.message:
      description: Allows a player to send a message to their Village.
+     default: true
    Villages.invite:
      description: Allows a player to send an invite for a Player to join their Village.
+     default: true
    Villages.accept:
      description: Allows a player to accept an invite to a Village.
+     default: true
    Villages.deny:
      description: Allows a player to deny an invite to a Village.
+     default: true
    Villages.spawn:
      description: Allows a player to go to the Village spawn.
+     default: true
    Villages.leave:
      description: Allows a player to leave their Village.
+     default: true
    Villages.villagetop:
      description: Allows a player to check the top Villages.
+     default: true
    Villages.lookup:
      description: Allows a player to lookup what Village another player belongs to.
+     default: true
    Villages.border:
      description: Allows a player to show the Village border.
+     default: true
    Villages.map:
      description: Allows a player to view the Village map (Gives a free map item though).
+     default: true
    Villages.admin.*:
-     description: Allows access to all Admin Commands
+     description: Allows access to all Admin Commands.
+     default: false
      children:
        Villages.admin.save: true
        Villages.admin.reload: true
@@ -95,6 +110,7 @@ permissions:
      description: Allows access to bypass all protections.
    Villages.mayor.*:
      description: Allows access to all Mayor Commands
+     default: true
      children:
        Villages.mayor.command: true
        Villages.mayor.close: true
@@ -128,6 +144,7 @@ permissions:
      description: Allows access for Mayors to explode their entire Village.
    Villages.bank.*:
      description: Allows access to all Bank Commands
+     default: true
      children:
        Villages.bank.deposit: true
        Villages.bank.withdraw: true
@@ -140,6 +157,7 @@ permissions:
      description: Allows access to open the Village item bank.
    Villages.plot.*:
      description: Allows access to all Plot Commands
+     default: true
      children:
        Villages.plot.claim: true
        Villages.plot.check: true
@@ -159,6 +177,7 @@ permissions:
      description: Allows access for Mayors to set the owner of a plot.
    Villages.tax.*:
      description: Allows access to all Tax Commands.
+     default: true
      children:
        Villages.tax.check: true
    Villages.tax.check:
