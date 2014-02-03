@@ -6,7 +6,7 @@ Similar to plugins like Towny, we wanted to create a simplified version of the p
 How it works
 ============
 
-Basically, a play can pay money to create a village (if economy is used, or simply it's free) at the chunk they're standing on, and invite players. Players can only be invited to a single village, the residents can then deposit money into the village which the mayor can spend to expand the village.
+Basically, a play can pay money to create a village (if economy is used, otherwise it's free) at the chunk they're standing on, and invite players. Players can only be invited to a single village, the residents can then deposit money into the village which the mayor can spend to expand the village.
 
 Future plans
 ============
