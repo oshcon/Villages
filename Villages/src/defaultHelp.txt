@@ -1,44 +1,44 @@
-village|Shows information about the village you're in (Same as /village info [your village])
-village info [name]|Gets information about the village you enter
-village invite [player]|Invites a player to your Village
-village accept|Accept a recieved Village Invite
-village deny|Deny a recieved invite
+village|Shows information about the village that you're in (Same as /village info [your village])
+village info [name]|Gets information about the village you enter.
+village invite [player]|Invites a player to your Village.
+village accept|Accept a received Village Invite.
+village deny|Deny a received invite.
 village create [name]|Creates a Village with the name you enter.
-village help|Shows basic information about the Villages plugin (needs work)
-village leave|Leave whatever Village you're in (have to resign as mayor first)
-village list|Shows a list of known Villages
-village lookup [player]|Lookup a specifc player and what Village they're in (if any)
+village help|Shows basic information about the Villages plugin (needs work).
+village leave|Leave whatever Village you're in (you have to resign as mayor first).
+village list|Shows a list of all known Villages.
+village lookup [player]|Lookup a specific player and what Village they're in (if any).
 village border|Show or hide the Village border.
-village map|Shows the Village Map (Gives you a map)
-village top|Shows the top 5 Villages based off wealth and resident count
-village spawn|Takes you to the Village's spawn
-village msg [message]|Sends a message to everyone in the Village
-village admin|Shows basic Plugin information
+village map|Shows the Village map (Gives you a map).
+village top|Shows the top 5 Villages based off wealth and resident count.
+village spawn|Takes you to your Village's spawn.
+village msg [message]|Sends a message to everyone in the Village.
+village admin|Shows basic plugin information.
 village admin add player [village] [player]|Adds [player] to village [village] (if possible)
-village admin delete [village]|Immediately delete a village
+village admin delete [village]|Immediately delete a village.
 village admin reload|Reload the plugin, configurations etc, BE CAREFUL! Any unsaved Village changes will be lost!
 village admin remove player [player]|Removes [player] from whatever village they're in
-village admin save|Saves all data to the disk
-village admin set description [village] [description]|Sets the Village description for the supplied village
-village admin set mayor [village] [mayor]|Sets the Mayor of a village
-village admin set name [village] [name]|Sets the name of a Village
-village admin debug|Turn on or off debugging mode
-village bank deposit [amount]|Deposit [amount] into the Village bank
-village bank withdraw [amount]|Withdraw [amount] from the Village bank
-village bank open|Opens the Village bank to store and withdraw items
-village mayor|Get basic information about Village (same as /village, but shows if you're mayor or not)
-village mayor close|Closes the Village! (no refunds, no items kept and no money saved!)
-village mayor expand|Expand the Village (see the bukkit page for more information)
-village mayor shrink|Unclaim a claimed Region
-village mayor explode|EXPLODES the Entire village, this will not delete the village however!
-village mayor kick [player]|Kick a player from the Village, their plots will still be claimed however
-village mayor set description [description]|Set a new Description for the Village
+village admin save|Saves all Villages data to the disk.
+village admin set description [village] [description]|Sets the Village description for the supplied village.
+village admin set mayor [village] [mayor]|Sets the mayor of a Village.
+village admin set name [village] [name]|Sets the name of a Village.
+village admin debug|Turn debugging mode on or off.
+village bank deposit [amount]|Deposit the specified amount into the Village bank.
+village bank withdraw [amount]|Withdraw the specified amount from the Village bank.
+village bank open|Opens the Village bank to store and withdraw items.
+village mayor|Get basic information about Village (same as /village, but shows if you're mayor or not).
+village mayor close|Closes the Village! (no refunds, no items kept and no money saved!).
+village mayor expand|Expand the Village (see the bukkit page for more information).
+village mayor shrink|Unclaim a claimed Region.
+village mayor explode|EXPLODES the entire village, this will not delete the village however.
+village mayor kick [player]|Kick a player from the Village, plots claimed by the player are not removed.
+village mayor set description [description]|Set a new description for the Village.
 village mayor set mayor [mayor]|Resign from mayor and make a new player mayor.
-village mayor set name [name]|Rename your Village
-village mayor set spawn|Sets the spawn to the Region you're standing in
-village plot check|Checks the claim status of the plot, or if it's available, the price
-village plot claim|Claims the plot for whatever price you enter, money goes to Village bank
-village plot set price [price]|(Mayor only) set the price of the plot you're standing in
+village mayor set name [name]|Rename your Village.
+village mayor set spawn|Sets the spawn to the region you're standing in.
+village plot check|Checks the claim status of the plot, or if it's available, the price.
+village plot claim|Claims the plot for whatever price you enter, money goes to Village bank.
+village plot set price [price]|(Mayor only) set the price of the plot you're standing in.
 village plot set owner [owner]|(Mayor only) set the owner of the plot you're standing in, set to the mayors name to make it available.
-village tax check|Shows a list of Taxes Due
+village tax check|Shows a list of taxes due.
 village tax check [name]|Enter the name of a tax to show what's due in that tax.
