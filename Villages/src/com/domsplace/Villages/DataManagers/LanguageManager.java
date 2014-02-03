@@ -1,3 +1,19 @@
+/*
+ * Copyright 2013 Dominic Masters and Jordan Atkins
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.domsplace.Villages.DataManagers;
 
 import static com.domsplace.Villages.Bases.Base.ChatDefault;
@@ -46,7 +62,7 @@ public class LanguageManager extends DataManager {
         cDV("cantkickmayor", "%e%You cannot kick the mayor of the Village.");
         cDV("cantshrinknotpart", "%e%Can't unclaim this region, it's not part of the Village.");
         cDV("cantshrinkspawn", "%e%Can't unclaim the Village spawn.");
-        cDV("chunkavailable", "%d%This chunk is available!\nPrce: %i%%x%");
+        cDV("chunkavailable", "%d%This chunk is available!\nPrice: %i%%x%");
         cDV("chunkclaimed", "%d%The %i%Mayor %d%has claimed %i%%r%%d% for you.");
         cDV("chunkclaimedbyplayer", "%e%This plot is claimed by another player.");
         cDV("chunknotowned", "%e%You don't own this plot.");

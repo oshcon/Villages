@@ -1,11 +1,11 @@
 /*
- * Copyright 2013 Dominic.
+ * Copyright 2013 Dominic Masters and Jordan Atkins
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -103,8 +103,8 @@ public abstract class BukkitCommand extends Base implements CommandExecutor, Tab
                 if(!result) return commandFailed(sender, cmd, label, args); 
                 return commandSuccess(sender, cmd, label, args);
             } catch(Exception e) {
-                Base.error("Command error! Show Villages Dev Team!", e);
-                sendMessage(sender, ChatError + "A command error occured, please contact a server Admin!");
+                Base.error("Command error! Please show to Villages developers.", e);
+                sendMessage(sender, ChatError + "A command error occured, please contact a server admin!");
                 return this.commandFailed(sender, cmd, label, args);
             }
         }

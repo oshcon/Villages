@@ -1,11 +1,11 @@
 /*
- * Copyright 2013 Dominic.
+ * Copyright 2013 Dominic Masters and Jordan Atkins
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,10 +22,6 @@ import com.domsplace.Villages.GUI.Frames.WelcomePanel;
 import com.domsplace.Villages.Objects.Village;
 import java.awt.BorderLayout;
 
-/**
- * @author      Dominic
- * @since       15/10/2013
- */
 public class VillageWelcomePanelThread extends VillageThread {
     private WelcomePanel panel;
     
