@@ -53,16 +53,16 @@ public class UpdateThread extends VillageThread {
             double onlineVersion = getDouble(name);
             double thisVersion = getDouble(PluginManager.PLUGIN_MANAGER.getVersion());
             
-            Base.debug("This Version: " + thisVersion);
-            Base.debug("Online Version: " + onlineVersion);
+            Base.debug("This version: " + thisVersion);
+            Base.debug("Online version: " + onlineVersion);
             
             if(thisVersion >= onlineVersion) {
-                Base.debug("No Updates Required!");
+                Base.debug("No updates required!");
                 return;
             }
             
             broadcast("Villages.admin", new String[]{
-                ChatImportant + "The new Version of " + getPlugin().getName() + " is available to download!",
+                ChatImportant + "The new version of " + getPlugin().getName() + " is available for download!",
                 "Download " + getPlugin().getName() + " v" + onlineVersion + " from: " + LatestVersionURL
             });
             this.stopThread();
