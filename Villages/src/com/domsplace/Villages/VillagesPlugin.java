@@ -1,4 +1,4 @@
-    package com.domsplace.Villages;
+package com.domsplace.Villages;
 
 import com.domsplace.Villages.Commands.SubCommands.Bank.VillageBankWithdraw;
 import com.domsplace.Villages.Commands.SubCommands.Bank.VillageBankDeposit;
@@ -119,7 +119,7 @@ public class VillagesPlugin extends PluginBase {
     @Override
     public void onDisable() {
         if(!enabled) {
-            Base.debug("Failed to Enable Villages!");
+            Base.debug("Failed to enable Villages!");
             return;
         }
         

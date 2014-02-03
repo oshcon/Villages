@@ -1,14 +1,19 @@
 What is it?
+============
 
-Similar to plugins like towny I wanted to create a simplified version, more of the, let the player decide, rather than letting the plugin or an administrator decide.
+Similar to plugins like Towny, we wanted to create a simplified version of the plugin that lets players decide how they want to play instead of the server's owners/admins controlling everything.
+
 How it works
+============
 
-Basically, a play can pay money to create a village (if economy is used, or simply it's free) at the chunk they're standing on, and invite players. Players can only be invited to a single village, the residents can then deposit money into the village which the mayor can spend to expand the village.
+Basically, a play can pay money to create a village (if economy is used, otherwise it's free) at the chunk they're standing on, and invite players. Players can only be invited to a single village, the residents can then deposit money into the village which the mayor can spend to expand the village.
+
 Future plans
+============
 
-So far the plugin is fairly basic, I wanted to put it on bukkit, see how it goes and if you people like it, I'll add more stuff, you can comment what you'd like to see added below if you wish.
+So far the plugin is fairly basic, we wanted to put it on Bukkit, see how it goes and if you people like it, I'll add more stuff, you can comment what you'd like to see added below if you wish.
 
-Some of the basic ideas I have now are:
+Some of the ideas that may be implemented in the future:
 
     Regions, which may have one or more Villages in them
     Wars between Villages and/or regions
