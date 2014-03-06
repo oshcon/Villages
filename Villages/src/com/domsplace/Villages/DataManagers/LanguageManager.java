@@ -174,6 +174,7 @@ public class LanguageManager extends DataManager {
         cDV("withdrawledmoney", "%i%%p% %d%withdrew %i%%x% %d%from the Village Bank.");
         cDV("showingborder", "%e%Now showing Village borders.");
         cDV("hidingborder", "%e%No longer showing Village borders.");
+        cDV("warsdisabled", "%e%Village wars aren't enabled.");
         
         this.trySave();
     }

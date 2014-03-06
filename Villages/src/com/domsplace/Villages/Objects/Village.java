@@ -113,6 +113,9 @@ public class Village {
     private List<Resident> residents;
     private List<TaxData> taxData;
     
+    private List<String> friends;
+    private List<String> foes;
+    
     public Village() {
         this.bank = new Bank(this);
         this.plots = new ArrayList<Plot>();
@@ -120,6 +123,8 @@ public class Village {
         this.residents = new ArrayList<Resident>();
         this.taxData = new ArrayList<TaxData>();
         this.createdDate = Base.getNow();
+        this.friends = new ArrayList<String>();
+        this.foes = new ArrayList<String>();
         this.description = "Welcome!";
     }
     
@@ -134,6 +139,8 @@ public class Village {
     public List<Plot> getPlots() {return new ArrayList<Plot>(this.plots);}
     public List<Resident> getResidents() {return new ArrayList<Resident>(this.residents);}
     public List<TaxData> getTaxData() {return new ArrayList<TaxData>(this.taxData);}
+    public List<String> getFriends() {return new ArrayList<String>(this.friends);}
+    public List<String> getFoes() {return new ArrayList<String>(this.foes);}
     
     public void setName(String name) {this.name = name; this.bank.updateGUI();}
     public void setDescription(String description) {this.description = description;}
@@ -145,6 +152,8 @@ public class Village {
     public void addPlot(Plot plot) {this.plots.add(plot);}
     public void addResident(Resident resident) {if(this.residents.contains(resident)){return;} this.residents.add(resident);}
     public void addTaxData(TaxData data) {this.taxData.add(data);}
+    public void addFriend(String friend) {this.friends.add(friend);}
+    public void addFoe(String foe) {this.foes.add(foe);}
     
     public void removeResident(Resident resident) {this.residents.remove(resident);}
 
@@ -166,6 +175,26 @@ public class Village {
             return r;
         }
         return null;
+    }
+
+    public List<Village> getVillageFriends() {
+        List<Village> vils = new ArrayList<Village>();
+        for(String s : this.friends) {
+            Village v = Village.getVillage(s);
+            if(v == null) continue;
+            vils.add(v);
+        }
+        return vils;
+    }
+
+    public List<Village> getVillageFoes() {
+        List<Village> vils = new ArrayList<Village>();
+        for(String s : this.foes) {
+            Village v = Village.getVillage(s);
+            if(v == null) continue;
+            vils.add(v);
+        }
+        return vils;
     }
     
     public boolean isRegionOverlappingVillage(Region region) {
@@ -398,5 +427,10 @@ public class Village {
         if(p == null) return false;
         if(p.getOwner() == null) return false;
         return p.getOwner().equals(resident);
+    }
+    
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

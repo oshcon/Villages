@@ -189,6 +189,20 @@ public class VillageManager extends DataManager {
             }
         }
         
+        if(yml.contains("friends")) {
+            List<String> friends = yml.getStringList("friends");
+            for(String s : friends) {
+                v.addFriend(s);
+            }
+        }
+        
+        if(yml.contains("foes")) {
+            List<String> foes = yml.getStringList("foes");
+            for(String s : foes) {
+                v.addFoe(s);
+            }
+        }
+        
         return v;
     }
     
@@ -247,6 +261,24 @@ public class VillageManager extends DataManager {
             } catch(Exception e){}
         }
         
+        query = "SELECT `%t%Villages`.`VillageName`,`%t%Relations`.`isFriend` FROM `%db%`.`%t%Villages`,`%db%`.`%t%Relations` WHERE `%db%`.`%t%Relations`.`VillageID`='" + villageID + "' AND `%db%`.`%t%Relations`.`TargetVillageID` = `%db%`.`%t%Villages`.`VillageID`;";
+        result = DataManager.SQL_MANAGER.fetch(query);
+        for(Map<String, String> res : result) {
+            try {
+                String village = res.get("VillageName").toString();
+                boolean isFriend = res.get("isFriend").toString().equalsIgnoreCase("1");
+                if(isFriend) {
+                    sendMessage("friend");
+                    v.addFriend(village);
+                } else {
+                    sendMessage("foe");
+                    v.addFoe(village);
+                }
+            } catch(Exception e){
+                error("Failed loading Village Wars", e);
+            }
+        }
+        
         Village.registerVillage(v);
     }
     
@@ -265,6 +297,8 @@ public class VillageManager extends DataManager {
         yml.set("createdDate", village.getCreatedDate());
         yml.set("spawn", village.getSpawn().toString());
         yml.set("regions", village.getRegionsAsString());
+        yml.set("friends", village.getFriends());
+        yml.set("foes", village.getFoes());
         
         if(village.getBank().getWealth() > 0d) {
             yml.set("bank.wealth", village.getBank().getWealth());
@@ -383,8 +417,10 @@ public class VillageManager extends DataManager {
             query = "DELETE FROM `%db%`.`%t%Items` WHERE `ItemID`='" + id + "';";
             DataManager.SQL_MANAGER.query(query);
         }
+        query = "DELETE FROM `%db%`.`%t%Residents` WHERE `VillageID` = '" + villageID + "';";
+        DataManager.SQL_MANAGER.query(query);
         
-        query = "DELETE FROM `%db%`.`%t%BankItems` WHERE `VillageID`='" + villageID + "';";
+        query = "DELETE FROM `%db%`.`%t%Relations` WHERE `VillageID` = '" + villageID + "';";
         DataManager.SQL_MANAGER.query(query);
         
         //Clear Old Residents
@@ -516,6 +552,19 @@ public class VillageManager extends DataManager {
             DataManager.SQL_MANAGER.query(query);
         }
         
+        //Save Friends/Foes
+        query = "INSERT INTO `%db%`.`%t%Relations` (`VillageID`, `TargetVillageID`, `isFriend`) VALUES ";
+        for(String s : village.getFriends()) {
+            try {query += "('" + villageID + "', '" + this.getVillageID(s) + "', '1'),";} catch(Exception e) {}
+        }
+        for(String s : village.getFoes()) {
+            try {query += "('" + villageID + "', '" + this.getVillageID(s) + "', '0'),";} catch(Exception e) {}
+        }
+        if(village.getFriends().size() + village.getFoes().size() > 0) {
+            query = query.substring(0, query.length() - 1) + ";";
+            try {DataManager.SQL_MANAGER.query(query);} catch(Exception e) {}
+        }
+        
         //Last Step, Set the spawn
         query = "REPLACE INTO `%db%`.`%t%Spawns` (`VillageID`, `PlotID`) VALUES ('" + villageID + "', '" + this.getPlotID(village.getSpawnRegion()) + "');";
         DataManager.SQL_MANAGER.query(query);
@@ -576,6 +625,12 @@ public class VillageManager extends DataManager {
             DataManager.SQL_MANAGER.query(query);
             
             query = "DELETE FROM `%db%`.`%t%Plots` WHERE `VillageID` = '" + villageID + "';";
+            DataManager.SQL_MANAGER.query(query);
+            
+            query = "DELETE FROM `%db%`.`%t%Relations` WHERE `VillageID` = '" + villageID + "';";
+            DataManager.SQL_MANAGER.query(query);
+            
+            query = "DELETE FROM `%db%`.`%t%Relations` WHERE `TargetVillageID` = '" + villageID + "';";
             DataManager.SQL_MANAGER.query(query);
             
             query = "DELETE FROM `%db%`.`%t%Villages` WHERE `VillageID` = '" + villageID + "';";

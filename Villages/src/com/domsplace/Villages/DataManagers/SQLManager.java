@@ -191,11 +191,17 @@ public class SQLManager extends DataManager {
         
         //Pre 2.09: Change Items Table ID from Int to String
         String alter = "ALTER TABLE `%db%`.`%t%Items` CHANGE `ID` `ID` VARCHAR(200) NOT NULL ;";
-        this.query(alter);
+        try {this.query(alter);} catch(Throwable e) {}
         
         //Pre 2.14: Change Enchantments Table ID from Int to String and ID to Name
-        alter = "ALTER TABLE `%db%`.`%t%ItemEnchantments` CHANGE `EnchantmentID` `EnchantmentName` VARCHAR(96) NOT NULL;";
-        this.query(alter);
+        boolean t = false;
+        alter = "SELECT IF(COUNT(*)=1, '0', '1') as a FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '%db%' AND TABLE_NAME = '%t%ItemEnchantments' AND COLUMN_NAME = 'EnchantmentID' LIMIT 1;";
+        t = this.fetch(alter).get(0).get("a").equalsIgnoreCase("0");
+        
+        if(t) {
+            alter = "ALTER TABLE `%db%`.`%t%ItemEnchantments` CHANGE `EnchantmentID` `EnchantmentName` VARCHAR(96) NOT NULL;";
+            try {this.query(alter);} catch(Throwable e) {}
+        }
         
         Base.useSQL = true;
     }

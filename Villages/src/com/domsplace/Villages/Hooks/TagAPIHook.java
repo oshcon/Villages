@@ -18,12 +18,14 @@ package com.domsplace.Villages.Hooks;
 
 import com.domsplace.Villages.Bases.Base;
 import com.domsplace.Villages.Bases.PluginHook;
+import com.domsplace.Villages.Listeners.LegacyTagAPIListener;
 import com.domsplace.Villages.Listeners.TagAPIListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.kitteh.tag.TagAPI;
 
 public class TagAPIHook extends PluginHook {
+    private LegacyTagAPIListener legacyListener;
     private TagAPIListener listener;
     
     public TagAPIHook() {
@@ -49,11 +51,23 @@ public class TagAPIHook extends PluginHook {
         }
     }
     
+    public boolean useLegacy() {
+        try {
+            return !Class.forName("AsyncPlayerReceiveNameTagEvent").equals(null);
+        } catch(Throwable t) {
+        }
+        return false;
+    }
+    
     @Override
     public void onHook() {
         super.onHook();
         Base.useTagAPI = true;
-        this.listener = new TagAPIListener();
+        if(useLegacy()) {
+            this.legacyListener = new LegacyTagAPIListener();
+        } else {
+            this.listener = new TagAPIListener();
+        }
     }
     
     @Override
@@ -61,8 +75,14 @@ public class TagAPIHook extends PluginHook {
         super.onUnhook();
         Base.useTagAPI = false;
         
-        if(this.listener == null) return;
-        this.listener.deRegisterListener();
-        this.listener = null;
+        if(this.legacyListener != null) {
+            this.legacyListener.deRegisterListener();
+            this.legacyListener = null;
+        }
+        
+        if(this.listener != null) {
+            this.listener.deRegisterListener();
+            this.listener = null;
+        }
     }
 }

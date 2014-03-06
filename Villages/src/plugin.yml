@@ -4,7 +4,7 @@ main: com.domsplace.Villages.VillagesPlugin
 author: Dominic
 authors: [Dominic, Jordan]
 website: http://domsplace.com/
-version: '2.19'
+version: '2.20'
 load: POSTWORLD
 softdepend: [WorldGuard, Vault, TagAPI, Herochat, PermissionsEx, EssentialsChat, DomsCommands]
 commands:
@@ -35,6 +35,7 @@ permissions:
        Villages.bank.*: true
        Villages.plot.*: true
        Villages.tax.*: true
+       Villages.war.*: true
    Villages.village:
      description: Allows access to the Villages command.
      default: true
@@ -182,3 +183,10 @@ permissions:
        Villages.tax.check: true
    Villages.tax.check:
      description: Allows access for players to check taxes.
+   Villages.war.*:
+     description: Allows access to all War commands.
+     default: true
+     children:
+       Villages.war.command: true
+   Villages.war.command:
+     description: Allows access for players to check war status.

@@ -60,7 +60,7 @@ public class Base extends RawBase {
     public static String VillagePrefix = "&9[&7%v%&9]";
     public static String WildernessPrefix = "&9[&7Wilderness&9]";
     
-    public static String Wilderness = "Wilderness";
+    public static String WildernessName = "Wilderness";
     
     public static String FriendColor = "&a";
     public static String EnemyColor = "&4";
@@ -93,7 +93,7 @@ public class Base extends RawBase {
         if(v != null) {
             p = VillagePrefix.replaceAll("%v%", v.getName());
         } else {
-            p = VillagePrefix.replaceAll("%v%", Wilderness);
+            p = VillagePrefix.replaceAll("%v%", WildernessName);
         }
         
         if(!p.contains("§")) p = colorise(p);

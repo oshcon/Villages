@@ -84,7 +84,7 @@ public class ConfigManager extends DataManager {
         df("colors.prefix.chat", true);
         df("colors.prefix.messages", "&9[&7Villages&9]");
         df("colors.prefix.village", "&9[&7%v%&9]");
-        df("colors.prefix.wilderness", "Wilderness");
+        df("colors.prefix.wilderness", "&9[&7Wilderness&9]");
         df("colors.players.friend", "&a");
         df("colors.players.foe", "&4");
         
@@ -162,6 +162,7 @@ public class ConfigManager extends DataManager {
         df("features.banks.money", true);
         df("features.plots", true);
         //df("features.ranks", true); (COMING SOON!)
+        df("features.wars", true);
         df("features.updates", true);
         df("features.expand.method", "CHUNK");
         df("features.guiscreen", true);
@@ -266,7 +267,7 @@ public class ConfigManager extends DataManager {
         Base.FriendColor = loadColor("colors.players.friend");
         Base.EnemyColor = loadColor("colors.players.foe");
         
-        Base.Wilderness = loadColor("messages.names.wilderness");
+        Base.WildernessName = loadColor("messages.names.wilderness");
         
         if(gs("features.expand.method", "CHUNK").equalsIgnoreCase("CLASSIC")){
             Base.ExpandingMethod = ExpandMethod.CLASSIC;

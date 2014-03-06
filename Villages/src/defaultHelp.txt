@@ -42,3 +42,4 @@ village plot set price [price]|(Mayor only) set the price of the plot you're sta
 village plot set owner [owner]|(Mayor only) set the owner of the plot you're standing in, set to the mayors name to make it available.
 village tax check|Shows a list of taxes due.
 village tax check [name]|Enter the name of a tax to show what's due in that tax.
+village war|View War status

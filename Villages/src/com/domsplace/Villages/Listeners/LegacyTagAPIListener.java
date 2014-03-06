@@ -26,11 +26,11 @@ import com.domsplace.Villages.Events.VillageDeletedEvent;
 import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Village;
 import org.bukkit.event.EventHandler;
-import org.kitteh.tag.AsyncPlayerReceiveNameTagEvent;
+import org.kitteh.tag.PlayerReceiveNameTagEvent;
 
-public class TagAPIListener extends VillageListener {
+public class LegacyTagAPIListener extends VillageListener {
     @EventHandler
-    public void handleVillageFoe(AsyncPlayerReceiveNameTagEvent e) {
+    public void handleVillageFoe(PlayerReceiveNameTagEvent e) {
         if(!useTagAPI) return;
         if(e.getPlayer() == null) return;
         if(e.getNamedPlayer() == null) return;
@@ -52,7 +52,7 @@ public class TagAPIListener extends VillageListener {
     }
     
     @EventHandler
-    public void handleVillageFriend(AsyncPlayerReceiveNameTagEvent e) {
+    public void handleVillageFriend(PlayerReceiveNameTagEvent e) {
         if(!useTagAPI) return;
         if(e.getPlayer() == null) return;
         if(e.getNamedPlayer() == null) return;

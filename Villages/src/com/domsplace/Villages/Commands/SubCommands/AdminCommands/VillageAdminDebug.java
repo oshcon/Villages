@@ -18,6 +18,7 @@ package com.domsplace.Villages.Commands.SubCommands.AdminCommands;
 
 import com.domsplace.Villages.Bases.Base;
 import com.domsplace.Villages.Bases.BukkitCommand;
+import com.domsplace.Villages.Bases.DataManager;
 import com.domsplace.Villages.Bases.SubCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -30,9 +31,12 @@ public class VillageAdminDebug extends SubCommand {
     
     @Override
     public boolean cmd(BukkitCommand bkcmd, CommandSender sender, Command cmd, String label, String[] args) {
+        debug(getPlugin().getName() + " Debug Mode Disabled!");
         Base.DebugMode = !Base.DebugMode;
         debug(getPlugin().getName() + " Debug Mode Enabled!");
         sendMessage(sender, "Turned Debug Mode " + ChatImportant + (Base.DebugMode ? "On" : "Off"));
+        DataManager.CONFIG_MANAGER.getCFG().set("debug", Base.DebugMode);
+        DataManager.CONFIG_MANAGER.save();
         return true;
     }
 }

@@ -84,7 +84,7 @@ public class VillageScoreboardThread extends VillageThread {
                 
                 Village pvil = Village.getPlayersVillage(Resident.getResident(p));
                 if(pvil == null) {
-                    v.addScore(Base.Wilderness, 1);
+                    v.addScore(Base.WildernessName, 1);
                 } else {
                     int i = 1;
                     v.addScore(ChatImportant + pvil.getMayor().getName(), i);

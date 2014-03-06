@@ -8,8 +8,9 @@ import com.domsplace.Villages.Bases.*;
 import com.domsplace.Villages.Commands.*;
 import com.domsplace.Villages.Commands.SubCommands.*;
 import com.domsplace.Villages.Commands.SubCommands.Mayor.*;
+import com.domsplace.Villages.Commands.SubCommands.War.*;
 import com.domsplace.Villages.Commands.SubCommands.Plot.*;
-import com.domsplace.Villages.Commands.SubCommands.Tax.VillageTaxCheck;
+import com.domsplace.Villages.Commands.SubCommands.Tax.*;
 import com.domsplace.Villages.Listeners.*;
 import com.domsplace.Villages.Objects.Village;
 import com.domsplace.Villages.Objects.VillageMap;
@@ -80,6 +81,8 @@ public class VillagesPlugin extends PluginBase {
         new VillagePlotSetPrice();
         
         new VillageTaxCheck();
+        
+        new VillageWar();
         
         //Hook
         PluginHook.hookAll();

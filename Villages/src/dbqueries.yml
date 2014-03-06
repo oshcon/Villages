@@ -118,3 +118,13 @@ spawns: '
     CONSTRAINT `SpawnsToPlotsFK` FOREIGN KEY (`PlotID`) REFERENCES `%db%`.`%t%Plots`(`PlotID`)
   ) ENGINE=MyISAM;
 '
+wars: '
+    CREATE TABLE IF NOT EXISTS `%db%`.`%t%Relations` (
+        `VillageID` int(11) NOT NULL,
+        `TargetVillageID` int(11) NOT NULL,
+        `isFriend` tinyint(1) NOT NULL,
+        CONSTRAINT `RelationsPrimaryKey` PRIMARY KEY (`VillageID`, `TargetVillageID`),
+        CONSTRAINT `RelationsToVillageFK` FOREIGN KEY (`VillageID`) REFERENCES `%db%`.`%t%Villages`(`VillageID`),
+        CONSTRAINT `RelationsTargetToVillageFK` FOREIGN KEY (`TargetVillageID`) REFERENCES `%db%`.`%t%Villages`(`VillageID`)
+    ) ENGINE=MyISAM;
+'
