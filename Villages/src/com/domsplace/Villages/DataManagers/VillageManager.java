@@ -416,11 +416,14 @@ public class VillageManager extends DataManager {
             
             query = "DELETE FROM `%db%`.`%t%Items` WHERE `ItemID`='" + id + "';";
             DataManager.SQL_MANAGER.query(query);
-        }
+        }   
         query = "DELETE FROM `%db%`.`%t%Residents` WHERE `VillageID` = '" + villageID + "';";
         DataManager.SQL_MANAGER.query(query);
         
         query = "DELETE FROM `%db%`.`%t%Relations` WHERE `VillageID` = '" + villageID + "';";
+        DataManager.SQL_MANAGER.query(query);
+        
+        query = "DELETE FROM `%db%`.`%t%BankItems` WHERE `VillageID` = '" + villageID + "';";
         DataManager.SQL_MANAGER.query(query);
         
         //Clear Old Residents
