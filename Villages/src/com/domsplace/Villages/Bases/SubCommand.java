@@ -87,31 +87,31 @@ public abstract class SubCommand extends Base implements Helpable {
     public boolean failedCommand(BukkitCommand bkcmd, CommandSender sender, Command cmd, String label, String[] args) {
         sendMessage(sender, new String[] {
             ChatImportant + "Command help:",
-            "\t" + ChatImportant + "Usage: " + ChatDefault + this.getCommandUsage().replaceAll(this.cmd.getCommand(), label),
-            "\t" + ChatImportant + "Info: " + ChatDefault + this.getHelpTextShort()
+            "\t" + ChatImportant + "Usage: " + ChatDefault + this.getCommandUsage(label),
+            "\t" + ChatImportant + "Info: " + ChatDefault + this.getHelpTextShort(label)
         });
         return true;
     }
     
     @Override public String getHelpPermission() {return this.getPermission();}
     @Override public String getHelpTopic() {return "/" + this.asCommand();}
-    @Override public String getHelpTextLarge(CommandSender forWho) {return this.getHelpTextShort();}
+    @Override public String getHelpTextLarge(CommandSender forWho) {return this.getHelpTextShort("");}
     @Override public void setHelpPermission(String permission) {this.setPermission(permission);}
     
     @Override
-    public String getHelpTextShort() {
+    public String getHelpTextShort(String label) {
         for(String s : DataManager.HELP_MANAGER.helps.keySet()) {
-            if(!s.toLowerCase().startsWith(this.asCommand().toLowerCase())) continue;
+            if(!s.replaceAll("%c%", "village").toLowerCase().startsWith(this.asCommand().toLowerCase())) continue;
             return DataManager.HELP_MANAGER.helps.get(s);
         }
         
         return ChatError + "Unknown Help.";
     }
     
-    public String getCommandUsage() {
+    public String getCommandUsage(String label) {
         for(String s : DataManager.HELP_MANAGER.helps.keySet()) {
-            if(!s.toLowerCase().startsWith(this.asCommand().toLowerCase())) continue;
-            return s;
+            if(!s.replaceAll("%c%", "village").toLowerCase().startsWith(this.asCommand().toLowerCase())) continue;
+            return s.replaceAll("%c%", label);
         }
         
         return this.cmd.getCommand();

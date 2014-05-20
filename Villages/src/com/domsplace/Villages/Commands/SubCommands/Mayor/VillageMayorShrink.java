@@ -32,7 +32,11 @@ import org.bukkit.command.CommandSender;
 
 public class VillageMayorShrink extends SubCommand {
     public VillageMayorShrink() {
-        super("village", "mayor", "shrink");
+        this("mayor");
+    }
+    
+    public VillageMayorShrink(String alias) {
+        super("village", alias, "shrink");
         this.setPermission("mayor.shrink");
     }
     

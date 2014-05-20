@@ -45,7 +45,7 @@ public class VillageHelpTopic extends HelpTopic {
 
     @Override
     public String getShortText() {
-        return this.topic.getHelpTextShort();
+        return this.topic.getHelpTextShort("");
     }
 
     @Override

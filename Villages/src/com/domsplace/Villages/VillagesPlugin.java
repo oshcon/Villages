@@ -8,6 +8,7 @@ import com.domsplace.Villages.Bases.*;
 import com.domsplace.Villages.Commands.*;
 import com.domsplace.Villages.Commands.SubCommands.*;
 import com.domsplace.Villages.Commands.SubCommands.Mayor.*;
+import com.domsplace.Villages.Commands.SubCommands.Leader.*;
 import com.domsplace.Villages.Commands.SubCommands.War.*;
 import com.domsplace.Villages.Commands.SubCommands.Plot.*;
 import com.domsplace.Villages.Commands.SubCommands.Tax.*;
@@ -63,6 +64,17 @@ public class VillagesPlugin extends PluginBase {
         new VillageBankDeposit();
         new VillageBankOpen();
         new VillageBankWithdraw();
+        
+        new VillageLeader();
+        new VillageLeaderClose();
+        new VillageLeaderKick();
+        new VillageLeaderSetLeader();
+        new VillageLeaderSetDescription();
+        new VillageLeaderSetName();
+        new VillageLeaderExpand();
+        new VillageLeaderSetSpawn();
+        new VillageLeaderExplode();
+        new VillageLeaderShrink();
         
         new VillageMayor();
         new VillageMayorClose();

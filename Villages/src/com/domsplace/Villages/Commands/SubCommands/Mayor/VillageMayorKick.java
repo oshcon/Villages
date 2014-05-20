@@ -27,7 +27,11 @@ import org.bukkit.command.CommandSender;
 
 public class VillageMayorKick extends SubCommand {
     public VillageMayorKick() {
-        super("village", "mayor", "kick");
+        this("mayor");
+    }
+    
+    public VillageMayorKick(String alias) {
+        super("village", alias, "kick");
         this.setPermission("mayor.kick");
     }
     

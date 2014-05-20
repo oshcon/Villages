@@ -20,6 +20,9 @@ package com.domsplace.Villages.DataManagers;
 import com.domsplace.Villages.Bases.DataManager;
 import com.domsplace.Villages.Enums.ManagerType;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,8 +44,24 @@ public class HelpManager extends DataManager {
     
     @Override
     public void tryLoad() throws IOException {
-        InputStream rulesIS = getPlugin().getResource("defaultHelp.txt");
-        BufferedReader rules = new BufferedReader(new InputStreamReader(rulesIS));
+        File help = new File(getDataFolder(), "help.txt");
+        
+        if(!help.exists()) {
+            InputStream rulesIS = getPlugin().getResource("defaultHelp.txt");
+            help.createNewFile();
+            FileOutputStream fos = new FileOutputStream(help);
+            
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while((read = rulesIS.read(bytes)) != 1) {
+                fos.write(bytes, 0, read);
+            }
+            
+            rulesIS.close();
+            fos.close();
+        }
+        
+        BufferedReader rules = new BufferedReader(new InputStreamReader(new FileInputStream(help)));
         String line;
         
         List<String> helps = new ArrayList<String>();

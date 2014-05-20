@@ -20,7 +20,7 @@ import org.bukkit.command.CommandSender;
 
 public interface Helpable {
     public String getHelpTopic();
-    public String getHelpTextShort();
+    public String getHelpTextShort(String label);
     public String getHelpTextLarge(CommandSender forWho);
     public String getHelpPermission();
     public void setHelpPermission(String permission);

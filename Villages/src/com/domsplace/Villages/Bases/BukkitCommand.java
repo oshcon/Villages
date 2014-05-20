@@ -142,7 +142,8 @@ public abstract class BukkitCommand extends Base implements CommandExecutor, Tab
         for(int i = (page - 1)*HELP_PER_PAGE; i < page*HELP_PER_PAGE; i++) {
             try {
                 SubCommand x = this.subCommands.get(i);
-                msgs.add(ChatImportant + "\t" + x.asCommand() + ChatDefault + " " + trim(x.getCommandUsage(), 20) + (x.getCommandUsage().length() >= 20 ? "..." : ""));
+                String j = x.getHelpTextShort(label);
+                msgs.add(ChatImportant + "\t" + x.getCommandUsage(label) + ChatDefault + " " + trim(j, 20) + (j.length() >= 20 ? "..." : ""));
             } catch(Exception e) {}
         }
         
@@ -237,6 +238,6 @@ public abstract class BukkitCommand extends Base implements CommandExecutor, Tab
     @Override public String getHelpTopic() {return "/" + this.command;}
     @Override public String getHelpPermission() {return this.getPermission();}
     @Override public void setHelpPermission(String permission) {this.setPermission(permission);}
-    @Override public String getHelpTextLarge(CommandSender forWho) {return this.getHelpTextShort();}
-    @Override public String getHelpTextShort() {return this.cmd.getDescription();}
+    @Override public String getHelpTextLarge(CommandSender forWho) {return this.getHelpTextShort("");}
+    @Override public String getHelpTextShort(String label) {return this.cmd.getDescription();}
 }

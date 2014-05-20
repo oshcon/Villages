@@ -69,6 +69,21 @@ public class VillageCommand extends BukkitCommand {
             new SubCommandOption("withdraw", "amount")
         ));
         
+        //Leader Commands
+        this.addSubCommandOption(new SubCommandOption("leader",
+            "close",
+            "expand",
+            "shrink",
+            new SubCommandOption("explode", "YES"),
+            new SubCommandOption("kick", SubCommandOption.RESIDENTS_OPTION),
+            new SubCommandOption("set", 
+                new SubCommandOption("description", "description"),
+                new SubCommandOption("leader", SubCommandOption.RESIDENTS_OPTION),
+                new SubCommandOption("name", "name"),
+                "spawn"
+            )
+        ));
+        
         //Mayor Commands
         this.addSubCommandOption(new SubCommandOption("mayor",
             "close",

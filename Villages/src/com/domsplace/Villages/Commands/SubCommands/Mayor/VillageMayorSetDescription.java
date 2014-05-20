@@ -29,7 +29,11 @@ public class VillageMayorSetDescription extends SubCommand {
     public static final int VILLAGE_DESCRIPTION_LENGTH = 80;
     
     public VillageMayorSetDescription() {
-        super("village", "mayor", "set", "description");
+        this("mayor");
+    }
+    
+    public VillageMayorSetDescription(String alias) {
+        super("village", alias, "set", "description");
         this.setPermission("mayor.setdescription");
     }
     

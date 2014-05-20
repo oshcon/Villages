@@ -28,7 +28,11 @@ import org.bukkit.command.CommandSender;
 
 public class VillageMayorSetSpawn extends SubCommand {
     public VillageMayorSetSpawn() {
-        super("village", "mayor", "set", "spawn");
+        this("mayor");
+    }
+    
+    public VillageMayorSetSpawn(String alias) {
+        super("village", alias, "set", "spawn");
         this.setPermission("mayor.setspawn");
     }
     

@@ -132,5 +132,5 @@ public class VillageCreate extends SubCommand {
         return true;
     }
     
-    @Override public String getHelpTextShort() {return "Creates a Village with the name you enter.";}
+    @Override public String getHelpTextShort(String label) {return "Creates a Village with the name you enter.";}
 }

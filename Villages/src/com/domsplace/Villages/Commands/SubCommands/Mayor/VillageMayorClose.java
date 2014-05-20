@@ -29,7 +29,11 @@ import org.bukkit.command.CommandSender;
 
 public class VillageMayorClose extends SubCommand {
     public VillageMayorClose() {
-        super("village", "mayor", "close");
+        this("mayor");
+    }
+    
+    public VillageMayorClose(String alias) {
+        super("village", alias, "close");
         this.setPermission("mayor.close");
     }
     

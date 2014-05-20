@@ -27,7 +27,11 @@ import org.bukkit.command.CommandSender;
 
 public class VillageMayorSetName extends SubCommand {
     public VillageMayorSetName() {
-        super("village", "mayor", "set", "name");
+        this("mayor");
+    }
+    
+    public VillageMayorSetName(String alias) {
+        super("village", alias, "set", "name");
         this.setPermission("mayor.setname");
     }
     

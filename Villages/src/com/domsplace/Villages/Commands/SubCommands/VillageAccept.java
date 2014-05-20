@@ -79,5 +79,5 @@ public class VillageAccept extends SubCommand {
         return true;
     }
 
-    @Override public String getHelpTextShort() {return "Accept a recieved Village Invite";}
+    @Override public String getHelpTextShort(String label) {return "Accept a recieved Village Invite";}
 }
