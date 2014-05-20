@@ -53,7 +53,7 @@ public class HelpManager extends DataManager {
             
             int read = 0;
             byte[] bytes = new byte[1024];
-            while((read = rulesIS.read(bytes)) != 1) {
+            while((read = rulesIS.read(bytes)) != -1) {
                 fos.write(bytes, 0, read);
             }
             
