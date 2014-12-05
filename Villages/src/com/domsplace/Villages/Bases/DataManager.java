@@ -18,12 +18,14 @@ package com.domsplace.Villages.Bases;
 
 import com.domsplace.Villages.DataManagers.*;
 import com.domsplace.Villages.Enums.ManagerType;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DataManager extends Base {
-    private static final List<DataManager> MANAGERS = new ArrayList<DataManager>();
+    private static final List<DataManager> MANAGERS = new CopyOnWriteArrayList<DataManager>();
     
     public static final PluginManager PLUGIN_MANAGER = new PluginManager();
     public static final ConfigManager CONFIG_MANAGER = new ConfigManager();
@@ -34,20 +36,21 @@ public class DataManager extends Base {
     public static final VillageManager VILLAGE_MANAGER = new VillageManager();
     public static final HelpManager HELP_MANAGER = new HelpManager();
     public static final CraftBukkitManager CRAFT_BUKKIT_MANAGER = new CraftBukkitManager();
+    public static final DataSyncManager DATA_SYNC_MANAGER = new DataSyncManager(5);
     
     private static void registerManager(DataManager manager) {
         DataManager.MANAGERS.add(manager);
     }
     
     public static List<DataManager> getManagers() {
-        return new ArrayList<DataManager>(MANAGERS);
+        return new CopyOnWriteArrayList<DataManager>(MANAGERS);
     }
     
     public static boolean loadAll() {
-        for(DataManager dm : MANAGERS) {
-            if(dm.load()) continue;
-            return false;
-        }
+    	for(DataManager dm : MANAGERS) {
+    	if(dm.load()) continue;
+    	return false;
+    	}
         
         return true;
     }
