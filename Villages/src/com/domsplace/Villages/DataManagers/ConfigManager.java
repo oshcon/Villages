@@ -76,6 +76,7 @@ public class ConfigManager extends DataManager {
         df("sql.password", "password");
         df("sql.database", "minecraft");
         df("sql.prefix", "Villages");
+         df("sql.DataSyncInterval", "180");
         
         //Colors
         df("colors.default", "&7");
