@@ -36,7 +36,7 @@ public class DataManager extends Base {
     public static final VillageManager VILLAGE_MANAGER = new VillageManager();
     public static final HelpManager HELP_MANAGER = new HelpManager();
     public static final CraftBukkitManager CRAFT_BUKKIT_MANAGER = new CraftBukkitManager();
-    public static final DataSyncManager DATA_SYNC_MANAGER = new DataSyncManager(5);
+    public static final DataSyncManager DATA_SYNC_MANAGER = new DataSyncManager(180);
     
     private static void registerManager(DataManager manager) {
         DataManager.MANAGERS.add(manager);
