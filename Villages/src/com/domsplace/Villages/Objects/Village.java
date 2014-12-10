@@ -32,6 +32,14 @@ public class Village {
     private static final List<Village> VILLAGES = new ArrayList<Village>();
     
     public static void registerVillage(Village village) {
+    	VILLAGES.remove(village);
+        village.getBank().updateGUI();
+        try {
+            if(village.getVillageMap() != null) {
+                village.getVillageMap().unload();
+            }
+        } catch(IllegalArgumentException e) {}
+        village.map = null;
         VILLAGES.add(village);
     }
     
