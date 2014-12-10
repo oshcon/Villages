@@ -31,12 +31,14 @@ import com.domsplace.Villages.Objects.TaxData;
 import com.domsplace.Villages.Objects.Village;
 import com.domsplace.Villages.Objects.DomsItem;
 import com.domsplace.Villages.Objects.DomsLocation;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -91,7 +93,7 @@ public class VillageManager extends DataManager {
         }
     }
     
-    public void loadAllVillagesYML() throws IOException {
+    public  void loadAllVillagesYML() throws IOException {
         this.directory = new File(getDataFolder(), "villages");
         if(!this.directory.exists()) this.directory.mkdir();
         File[] villages = this.directory.listFiles();
@@ -207,6 +209,7 @@ public class VillageManager extends DataManager {
     }
     
     public void loadAllVillagesSQL() {
+    	System.out.println("Village Data Syncing");
         List<Map<String, String>> results = DataManager.SQL_MANAGER.fetch("SELECT * FROM `%db%`.`%t%Villages`;");
         for(Map<String, String> result : results) {
             this.loadVillageSQL(result);
@@ -278,8 +281,9 @@ public class VillageManager extends DataManager {
                 error("Failed loading Village Wars", e);
             }
         }
-        
+        Village.deRegisterVillage(v);
         Village.registerVillage(v);
+        System.out.println("Village Data Synced");
     }
     
     public void saveVillageAsYML(Village village) throws IOException {
