@@ -27,14 +27,13 @@ import com.domsplace.Villages.Bases.DataManager;
 		  class DataSyncTask extends TimerTask {
 			  
 		    public void run() {
-		    	 int delay = ConfigManager.getConfig().getInt("message");
+		    	// int delay = ConfigManager.getConfig().getInt("message");
 		    	for ( ; ; ) {
+		    		System.out.println("Initializing Data Sync");
 		    		VillageManager villageobject = new VillageManager();
 						villageobject.loadAllVillagesSQL();
-		    		
-					System.out.println("Village Data Synced");
 		    		try {
-		    		    Thread.sleep(delay * 1000);         
+		    		    Thread.sleep(180 * 1000);         
 		    		} catch(InterruptedException ex) {
 		    		    Thread.currentThread().interrupt();
 		    		}
