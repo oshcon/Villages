@@ -16,12 +16,14 @@
 
 package com.domsplace.Villages.Commands.SubCommands.War;
 
-import com.domsplace.DomsCommands.Bases.Base;
+import com.domsplace.Villages.Bases.Base;
 import com.domsplace.Villages.Bases.BukkitCommand;
 import com.domsplace.Villages.Bases.DataManager;
 import com.domsplace.Villages.Bases.SubCommand;
 import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Village;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -48,9 +50,17 @@ public class VillageWar  extends SubCommand {
             sk(sender, "notinvillage");
             return true;
         }
-        
-        List<Village> friends = v.getVillageFriends();
-        List<Village> foes = v.getVillageFoes();
+
+        List<String> friends = new ArrayList<>();
+        List<String> foes = new ArrayList<>();
+
+        for (Village village : v.getVillageFriends()) {
+            friends.add(village.getName());
+        }
+
+        for (Village village : v.getVillageFoes()) {
+            foes.add(village.getName());
+        }
         
         sendMessage(sender, new String[] {
             ChatImportant + "Friends: " + ChatDefault + Base.listToString(friends, ", "),

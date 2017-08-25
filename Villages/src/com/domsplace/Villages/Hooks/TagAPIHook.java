@@ -22,67 +22,66 @@ import com.domsplace.Villages.Listeners.LegacyTagAPIListener;
 import com.domsplace.Villages.Listeners.TagAPIListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.kitteh.tag.TagAPI;
 
 public class TagAPIHook extends PluginHook {
     private LegacyTagAPIListener legacyListener;
     private TagAPIListener listener;
-    
+
     public TagAPIHook() {
         super("TagAPI");
     }
-    
-    public TagAPI getTagAPI() {
-        return (TagAPI) this.getHookedPlugin();
-    }
-    
-    public void refreshTags(Player p) {
-        if(!this.isHooked()) return;
-        try {
-            TagAPI.refreshPlayer(p);
-        } catch(NoClassDefFoundError e) {
-        }
-    }
 
-    public void refreshTags() {
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            if(!Base.inVillageWorld(p)) return;
-            refreshTags(p);
-        }
-    }
-    
-    public boolean useLegacy() {
-        try {
-            return !Class.forName("AsyncPlayerReceiveNameTagEvent").equals(null);
-        } catch(Throwable t) {
-        }
-        return false;
-    }
-    
-    @Override
-    public void onHook() {
-        super.onHook();
-        Base.useTagAPI = true;
-        if(useLegacy()) {
-            this.legacyListener = new LegacyTagAPIListener();
-        } else {
-            this.listener = new TagAPIListener();
-        }
-    }
-    
-    @Override
-    public void onUnhook() {
-        super.onUnhook();
-        Base.useTagAPI = false;
-        
-        if(this.legacyListener != null) {
-            this.legacyListener.deRegisterListener();
-            this.legacyListener = null;
-        }
-        
-        if(this.listener != null) {
-            this.listener.deRegisterListener();
-            this.listener = null;
-        }
-    }
+//    public TagAPI getTagAPI() {
+//        return (TagAPI) this.getHookedPlugin();
+//    }
+//
+//    public void refreshTags(Player p) {
+//        if(!this.isHooked()) return;
+//        try {
+//            TagAPI.refreshPlayer(p);
+//        } catch(NoClassDefFoundError e) {
+//        }
+//    }
+//
+//    public void refreshTags() {
+//        for(Player p : Bukkit.getOnlinePlayers()) {
+//            if(!Base.inVillageWorld(p)) return;
+//            refreshTags(p);
+//        }
+//    }
+//
+//    public boolean useLegacy() {
+//        try {
+//            return !Class.forName("AsyncPlayerReceiveNameTagEvent").equals(null);
+//        } catch(Throwable t) {
+//        }
+//        return false;
+//    }
+//
+//    @Override
+//    public void onHook() {
+//        super.onHook();
+//        Base.useTagAPI = true;
+//        if(useLegacy()) {
+//            this.legacyListener = new LegacyTagAPIListener();
+//        } else {
+//            this.listener = new TagAPIListener();
+//        }
+//    }
+//
+//    @Override
+//    public void onUnhook() {
+//        super.onUnhook();
+//        Base.useTagAPI = false;
+//
+//        if(this.legacyListener != null) {
+//            this.legacyListener.deRegisterListener();
+//            this.legacyListener = null;
+//        }
+//
+//        if(this.listener != null) {
+//            this.listener.deRegisterListener();
+//            this.listener = null;
+//        }
+//    }
 }

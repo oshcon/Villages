@@ -16,7 +16,6 @@
 
 package com.domsplace.Villages.Hooks;
 
-import com.domsplace.SELBans;
 import com.domsplace.Villages.Bases.PluginHook;
 
 public class SELBansHook extends PluginHook {
@@ -24,7 +23,7 @@ public class SELBansHook extends PluginHook {
         super("SELBans");
     }
     
-    public SELBans getSELBans() {
-        return (SELBans) this.getHookedPlugin();
-    }
+//    public SELBans getSELBans() {
+//        return (SELBans) this.getHookedPlugin();
+//    }
 }

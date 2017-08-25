@@ -22,6 +22,7 @@ import com.domsplace.Villages.Bases.DataManager;
 import com.domsplace.Villages.Enums.ManagerType;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -182,7 +183,7 @@ public class SQLManager extends DataManager {
         
         //Create Tables
         InputStream queries = getPlugin().getResource("dbqueries.yml");
-        YamlConfiguration yml = YamlConfiguration.loadConfiguration(queries);
+        YamlConfiguration yml = YamlConfiguration.loadConfiguration(new InputStreamReader(queries));
         
         for(String s : yml.getKeys(false)) {
             String query = yml.getString(s);

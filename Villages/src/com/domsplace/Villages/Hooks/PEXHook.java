@@ -19,8 +19,6 @@ package com.domsplace.Villages.Hooks;
 import com.domsplace.Villages.Bases.Base;
 import com.domsplace.Villages.Bases.PluginHook;
 import org.bukkit.entity.Player;
-import ru.tehkode.permissions.PermissionUser;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class PEXHook extends PluginHook {
     public PEXHook() {
@@ -28,19 +26,19 @@ public class PEXHook extends PluginHook {
         this.shouldHook(true);
     }
     
-    public boolean hasPermission(Player player, String permission) {
-        return hasPermission(player.getName(), permission);
-    }
-    
-    public boolean hasPermission(String player, String permission) {
-        try {
-            PermissionUser user = PermissionsEx.getUser(player);
-            Base.debug("Checking PEX Perms "  + player + " has " + permission + " = " + user.has(permission));
-            return user.has(permission);
-        } catch(Exception e) {
-            return false;
-        } catch(Error e) {
-            return false;
-        }
-    }
+//    public boolean hasPermission(Player player, String permission) {
+//        return hasPermission(player.getName(), permission);
+//    }
+//
+//    public boolean hasPermission(String player, String permission) {
+//        try {
+//            PermissionUser user = PermissionsEx.getUser(player);
+//            Base.debug("Checking PEX Perms "  + player + " has " + permission + " = " + user.has(permission));
+//            return user.has(permission);
+//        } catch(Exception e) {
+//            return false;
+//        } catch(Error e) {
+//            return false;
+//        }
+//    }
 }

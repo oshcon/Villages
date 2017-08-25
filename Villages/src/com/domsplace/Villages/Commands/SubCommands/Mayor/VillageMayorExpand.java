@@ -102,12 +102,12 @@ public class VillageMayorExpand extends SubCommand {
             }
 
             //Make sure they have WorldGuard Perms
-            if(Base.useWorldGuard) {
-                if(PluginHook.WORLD_GUARD_HOOK.isOverlappingRegion(region)) {
-                    sk(sender, "expandregionoverlap");
-                    return true;
-                }
-            }
+//            if(Base.useWorldGuard) {
+//                if(PluginHook.WORLD_GUARD_HOOK.isOverlappingRegion(region)) {
+//                    sk(sender, "expandregionoverlap");
+//                    return true;
+//                }
+//            }
         }
         
         //Charge Village on Per-Chunk basis

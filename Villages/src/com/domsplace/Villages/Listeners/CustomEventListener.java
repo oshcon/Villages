@@ -103,8 +103,9 @@ public class CustomEventListener extends VillageListener {
         
         Arrow arrow = (Arrow) e.getDamager();
         if(arrow.getShooter() == null) return;
-        if(arrow.getShooter().getType() == null) return;
-        if(!arrow.getShooter().getType().equals(EntityType.PLAYER)) return;
+//        if(arrow.getShooter().getType() == null) return;
+//        if(!arrow.getShooter().getType().equals(EntityType.PLAYER)) return;
+        if(!(arrow.getShooter() instanceof Player)) return;
         
         Player attacked = getPlayer(e.getEntity());
         Player damager = getPlayer(arrow.getShooter());

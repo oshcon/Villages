@@ -16,7 +16,6 @@
 
 package com.domsplace.Villages.Commands.SubCommands.Mayor;
 
-import com.domsplace.DomsCommands.Bases.Base;
 import com.domsplace.Villages.Bases.BukkitCommand;
 import com.domsplace.Villages.Bases.DataManager;
 import com.domsplace.Villages.Bases.SubCommand;

@@ -20,6 +20,8 @@ import com.domsplace.Villages.Bases.DataManager;
 import com.domsplace.Villages.Enums.ManagerType;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class PluginManager extends DataManager {
@@ -33,7 +35,7 @@ public class PluginManager extends DataManager {
     public void tryLoad() throws IOException {
         if(!getDataFolder().exists()) getDataFolder().mkdir();
         InputStream is = getPlugin().getResource("plugin.yml");
-        plugin = YamlConfiguration.loadConfiguration(is);
+        plugin = YamlConfiguration.loadConfiguration(new InputStreamReader(is));
         is.close();
     }
 

@@ -16,8 +16,6 @@
 
 package com.domsplace.Villages.Listeners;
 
-import com.domsplace.DomsCommands.Events.DomsPlayerUpdateVariablesEvent;
-import com.domsplace.DomsCommands.Objects.DomsPlayer;
 import com.domsplace.Villages.Bases.Base;
 import com.domsplace.Villages.Bases.VillageListener;
 import com.domsplace.Villages.Objects.Resident;
@@ -25,9 +23,9 @@ import com.domsplace.Villages.Objects.Village;
 import org.bukkit.event.EventHandler;
 
 public class DomsCommandsListener extends VillageListener {
-    @EventHandler()
-    public void handleVillageVariable(DomsPlayerUpdateVariablesEvent e) {
-        DomsPlayer player = e.getPlayer();
-        player.setVariable("VILLAGE", Base.getVillagePrefix(Village.getPlayersVillage(Resident.getResident(player.getPlayer()))));
-    }
+//    @EventHandler()
+//    public void handleVillageVariable(DomsPlayerUpdateVariablesEvent e) {
+//        DomsPlayer player = e.getPlayer();
+//        player.setVariable("VILLAGE", Base.getVillagePrefix(Village.getPlayersVillage(Resident.getResident(player.getPlayer()))));
+//    }
 }

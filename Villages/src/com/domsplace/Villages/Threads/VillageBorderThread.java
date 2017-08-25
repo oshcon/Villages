@@ -29,7 +29,7 @@ public class VillageBorderThread extends VillageThread {
     
     @Override
     public void run() {
-        if(Bukkit.getOnlinePlayers().length < 1) return;
+        if(Bukkit.getOnlinePlayers().size() < 1) return;
         
         for(Player p : Bukkit.getOnlinePlayers()) {
             Resident r = Resident.getResident(p);

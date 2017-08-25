@@ -16,8 +16,7 @@
 
 package com.domsplace.Villages.Listeners;
 
-import com.domsplace.DomsCommands.Bases.Base;
-import static com.domsplace.Villages.Bases.Base.getConfig;
+import com.domsplace.Villages.Bases.Base;
 import com.domsplace.Villages.Bases.VillageListener;
 import com.domsplace.Villages.Enums.DeleteCause;
 import com.domsplace.Villages.Events.VillageDeletedEvent;
@@ -32,7 +31,7 @@ public class VillageRefundListener extends VillageListener {
         Resident r = e.getVillage().getMayor();
         Village v = e.getVillage();
         if(e.getCause().equals(DeleteCause.ADMIN_DELETE)) return;
-        if(Base.useEcon()) {
+        if(Base.useEconomy()) {
             double refund = getConfig().getDouble("refund.closevillage", 0.0d);
             Base.chargePlayer(r.getOfflinePlayer(), -refund);
             Base.chargePlayer(r.getOfflinePlayer(), -v.getBank().getWealth());
@@ -45,7 +44,7 @@ public class VillageRefundListener extends VillageListener {
     public void handleVillageShrunk(VillageShrinkEvent e) {
         Resident r = e.getVillage().getMayor();
         Village v = e.getVillage();
-        if(Base.useEcon()) {
+        if(Base.useEconomy()) {
             double refund = getConfig().getDouble("refund.closevillageperchunk", 0.0d) * ((double) e.getRegions().size());
             if(getConfig().getBoolean("features.banks.money", true)) {
                 v.getBank().addWealth(refund);

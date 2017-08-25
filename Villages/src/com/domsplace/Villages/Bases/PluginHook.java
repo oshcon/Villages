@@ -27,13 +27,13 @@ public class PluginHook {
     private static final List<PluginHook> PLUGIN_HOOKS = new ArrayList<PluginHook>();
     
     public static final VaultHook VAULT_HOOK = new VaultHook();
-    public static final WorldGuardHook WORLD_GUARD_HOOK = new WorldGuardHook();
-    public static final HeroChatHook HERO_CHAT_HOOK = new HeroChatHook();
-    public static final TagAPIHook TAG_API_HOOK = new TagAPIHook();
-    public static final SELBansHook SEL_BANS_HOOK = new SELBansHook();
-    public static final PEXHook PEX_HOOK = new PEXHook();
+//    public static final WorldGuardHook WORLD_GUARD_HOOK = new WorldGuardHook();
+//    public static final HeroChatHook HERO_CHAT_HOOK = new HeroChatHook();
+//    public static final TagAPIHook TAG_API_HOOK = new TagAPIHook();
+//    public static final SELBansHook SEL_BANS_HOOK = new SELBansHook();
+//    public static final PEXHook PEX_HOOK = new PEXHook();
     public static final EssentialsChatHook ESSENTIALS_CHAT_HOOK = new EssentialsChatHook();
-    public static final DomsCommandsHook DOMS_COMMANDS_HOOK = new DomsCommandsHook();
+//    public static final DomsCommandsHook DOMS_COMMANDS_HOOK = new DomsCommandsHook();
     public static final DynmapHook DYNMAP_HOOK = new DynmapHook();
     
     //Static

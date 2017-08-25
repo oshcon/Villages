@@ -108,12 +108,12 @@ public class VillageCreate extends SubCommand {
         }
         
         //Check for WorldGuard Overlapping
-        if(Base.useWorldGuard) {
-            if(PluginHook.WORLD_GUARD_HOOK.isOverlappingRegion(spawnRegion)) {
-                sk(sender, "createvillageregionoverlap");
-                return true;
-            }
-        }
+//        if(Base.useWorldGuard) {
+//            if(PluginHook.WORLD_GUARD_HOOK.isOverlappingRegion(spawnRegion)) {
+//                sk(sender, "createvillageregionoverlap");
+//                return true;
+//            }
+//        }
         
         //Fire Events
         VillageCreatedEvent event = new VillageCreatedEvent(player, village);

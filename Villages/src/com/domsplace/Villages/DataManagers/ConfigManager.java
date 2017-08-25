@@ -146,9 +146,9 @@ public class ConfigManager extends DataManager {
         //df("protection.mobgriefing.wilderness.enderman", true);
         
         //Plugins
-        df("plugins.worldguard", true);
-        df("plugins.tagapi", true);
-        df("plugins.herochat", true);
+//        df("plugins.worldguard", true);
+//        df("plugins.tagapi", true);
+//        df("plugins.herochat", true);
         df("plugins.vault", true);
         df("plugins.essentials.chat", true);
         //df("plugins.dynmap", true);
@@ -286,9 +286,9 @@ public class ConfigManager extends DataManager {
         
         //Setup Hooking Options
         PluginHook.VAULT_HOOK.shouldHook(config.getBoolean("plugins.vault", true));
-        PluginHook.WORLD_GUARD_HOOK.shouldHook(config.getBoolean("plugins.worldguard", true));
-        PluginHook.HERO_CHAT_HOOK.shouldHook(config.getBoolean("plugins.herochat", true));
-        PluginHook.TAG_API_HOOK.shouldHook(config.getBoolean("plugins.tagapi", true));
+//        PluginHook.WORLD_GUARD_HOOK.shouldHook(config.getBoolean("plugins.worldguard", true));
+//        PluginHook.HERO_CHAT_HOOK.shouldHook(config.getBoolean("plugins.herochat", true));
+//        PluginHook.TAG_API_HOOK.shouldHook(config.getBoolean("plugins.tagapi", true));
         PluginHook.ESSENTIALS_CHAT_HOOK.shouldHook(config.getBoolean("plugins.essentials.chat", true));
         //PluginHook.DYNMAP_HOOK.shouldHook(config.getBoolean("plugins.dynmap", true));
         

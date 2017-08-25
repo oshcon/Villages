@@ -16,18 +16,16 @@
 
 package com.domsplace.Villages.Bases;
 
-import com.domsplace.BansUtils;
 import com.domsplace.Villages.Hooks.VaultHook;
-import com.domsplace.DomsCommands.Objects.DomsPlayer;
 import com.domsplace.Villages.DataManagers.CraftBukkitManager;
 import com.domsplace.Villages.Enums.ExpandMethod;
 import com.domsplace.Villages.GUI.VillagesGUIManager;
 import com.domsplace.Villages.Objects.Resident;
 import com.domsplace.Villages.Objects.Village;
 import com.domsplace.Villages.VillagesPlugin;
-import com.dthielke.herochat.Herochat;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import org.bukkit.Bukkit;
@@ -41,6 +39,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class Base extends RawBase {
     public static final String TAB = "    ";
@@ -76,8 +75,8 @@ public class Base extends RawBase {
     
     //HOOKING OPTIONS
     public static boolean useSQL = false;
-    public static boolean useWorldGuard = false;
-    public static boolean useTagAPI = false;
+//    public static boolean useWorldGuard = false;
+//    public static boolean useTagAPI = false;
     public static boolean useScoreboards = false;
     
     //String Utils
@@ -304,7 +303,10 @@ public class Base extends RawBase {
     }
     
     public static void sendAll(Object o) {
-        sendAll(Bukkit.getOnlinePlayers(), o);
+//        sendAll(Bukkit.getOnlinePlayers(), o);
+        Collection online = Bukkit.getOnlinePlayers();
+        Player[] players = (Player[]) online.toArray(new Player[0]);
+        sendAll(players, o);
     }
     
     public static void sendAll(String permission, Object o) {
@@ -547,9 +549,9 @@ public class Base extends RawBase {
         if(sender.isOnline()) return hasPermission(sender.getPlayer(), permission);
         
         //PermissionsEx Permission Checking
-        if(PluginHook.PEX_HOOK.isHooked()) {
-            return PluginHook.PEX_HOOK.hasPermission(sender.getName(), permission);
-        }
+//        if(PluginHook.PEX_HOOK.isHooked()) {
+//            return PluginHook.PEX_HOOK.hasPermission(sender.getName(), permission);
+//        }
         
         World world = Bukkit.getWorlds().get(0);
         if(sender.isOnline()) {
@@ -575,9 +577,9 @@ public class Base extends RawBase {
         if(getPlayer(sender).hasPermission(permission)) return true;
         
         //PermissionsEx Permission Checking
-        if(PluginHook.PEX_HOOK.isHooked()) {
-            return PluginHook.PEX_HOOK.hasPermission(getPlayer(sender), permission);
-        }
+//        if(PluginHook.PEX_HOOK.isHooked()) {
+//            return PluginHook.PEX_HOOK.hasPermission(getPlayer(sender), permission);
+//        }
         
         //Vault Permission Checking
         if(PluginHook.VAULT_HOOK.isHooked() && PluginHook.VAULT_HOOK.getPermission() != null) {
@@ -619,9 +621,19 @@ public class Base extends RawBase {
     }
     
     public static boolean isMuted(OfflinePlayer player) {
-        try {if(PluginHook.SEL_BANS_HOOK.isHooked() && !BansUtils.CanPlayerTalk(player)) return true;}catch(Error e) {} catch(Exception e) {}
-        try {if(PluginHook.DOMS_COMMANDS_HOOK.isHooked() && DomsPlayer.getPlayer(player).isMuted()) return true;}catch(Error e) {}catch(Exception e){}
-        try {if(PluginHook.HERO_CHAT_HOOK.isHooked() && Herochat.getChatterManager().getChatter(player.getName()).isMuted()) return true;}catch(Error e) {} catch(Exception e) {}
+//        try {if(PluginHook.SEL_BANS_HOOK.isHooked() && !BansUtils.CanPlayerTalk(player)) return true;}catch(Error e) {} catch(Exception e) {}
+//        try {if(PluginHook.DOMS_COMMANDS_HOOK.isHooked() && DomsPlayer.getPlayer(player).isMuted()) return true;}catch(Error e) {}catch(Exception e){}
+//        try {if(PluginHook.HERO_CHAT_HOOK.isHooked() && Herochat.getChatterManager().getChatter(player.getName()).isMuted()) return true;}catch(Error e) {} catch(Exception e) {}
+        if (player != null) {
+            if (player.isOnline()) {
+                AsyncPlayerChatEvent event = new AsyncPlayerChatEvent(true, (Player) player, "Am I muted?", null);
+                Bukkit.getPluginManager().callEvent(event);
+                if (event.isCancelled()) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
     
